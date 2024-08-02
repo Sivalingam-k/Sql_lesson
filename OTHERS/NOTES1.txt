@@ -1,0 +1,1766 @@
+// List out all tables:
+    *show databases;
+	
+//To Create Databases:
+	* create datbase database_name;
+	
+//To DROP Databases:
+    *DROP datbase database_name;
+	
+	//CLEAR THE SCREEN: SYSTEM CLS
+	//USE CDB:IT WILL SELECT THE DATABASE WITH THE NAME "CDB".
+	
+	//CREATE TABLE: CREATE TABLE TABLE_NAME(COLUMN_NAME DATATYPE CONSTRAINTS,COLUMN_NAME DATATYPE CONSTRAINTS)
+	ex: CREATE TABLE TASKS(ID INT PRIMARY KEY,TITLE VARCHAR(255) UNIQUE NOT NULL,START_DATE DATE,DUE_DATE DATE);
+	
+	
+//SHOW TABLES-IT WILL SHOW ALL TABLES IN  THE SELECTED DATABASE	
+
+
+ CREATE TABLE CHECKLIST(ID INT,
+   TASKS_ID INT AUTO_INCREMENT,
+    TITLE VARCHAR(255),
+    IS_COMPLETED BOOLEAN NOT NULL DEFAULT FALSE,
+      PRIMARY KEY(ID,TASKS_ID),
+   FOREIGN KEY(TASKS_ID)
+    REFERENCES TASKS(ID) 
+	ON UPDATE RESTRICT 
+	ON DELETE CASCADE);
+	
+	//CREATE TABLE SUBSCRIBERS(EMAIL VARCHAR(300) NOT NULL UNIQUE);
+	// ALTER TABLE SUBSCRIBERS
+    -> ADD PHONE INT;
+	
+	// RENAME TABLE SUBSCRIBERS TO SUB;
+	
+	// ALTER TABLE SUBSCRIBERS
+    -> RENAME COLUMN PHONE TO CONTACT;
+	
+	// ALTER TABLE SUB
+    -> RENAME COLUMN PHONE TO CONTACT;
+	
+	
+	//Task 1:TABLE 1
+	--------------------------------
+		CREATE TABLE MOVIES(
+		MOVIE_ID INT PRIMARY KEY,
+		MOVIE_NAME VARCHAR(255) UNIQUE NOT NULL,
+		MOVIE_TYPE VARCHAR(255)  NOT NULL,
+		MOVIE_RATING INT);
+		===========================================
+		TABLE 2:
+		
+		CREATE TABLE COMPANY(
+		COMPANY_ID INT PRIMARY KEY,
+		TRADE VARCHAR(255)  NOT NULL,
+		NUMBER_OF_EMPLOYESS INT   NOT NULL DEFAULT 0
+		);
+		===============================================
+		TABLE:3
+		
+		CREATE TABLE JOB_OFFER(
+		OFFER_ID INT AUTO_INCREMENT PRIMARY KEY ,
+		OFFER_TITLE  VARCHAR(255) NOT NULL  DEFAULT " " ,
+		OFFER_MIN_SALARY INT DEFAULT 5000,
+		OFFER_MAX_SALARY INT NULL,
+		COMPANY_ID INT,
+		FOREIGN KEY (COMPANY_ID)
+		REFERENCES COMPANY (COMPANY_ID)
+		ON UPDATE RESTRICT
+		ON DELETE CASCADE
+		);
+		//ALERT:
+		------------------------------------------
+		Write a SQL statement to rename the movies table to movies_renamed.
+		RENAME TABLE MOVIES TO MOVIES_RENAMED;
+
+Write a SQL statement to add a column movie_director to the movies_renamed table.
+ALTER TABLE MOVIES_RENAMED
+ADD COLUMN MOVIE_DIRECTOR VARCHAR(50);
+
+Write a SQL statement to add a column ID as a first column of the movies_renamed table.
+
+
+Write a SQL statement to add a column movie_description after the movie_name column in movies_renamed table.
+ALTER TABLE MOVIES_RENAMED
+ADD COLUMN MOVIE_DESCRIPTION VARCHAR(100) AFTER MOVIE_NAME;
+
+Write a SQL statement to change the data type of the column movie_rating to integer.
+ALTER TABLE MOVIES_RENAMED
+MODIFY COLUMN MOVIE_RATING INT;
+Write a SQL statement to drop the movie_director column.
+
+ALTER TABLE MOVIES_RENAMED
+DROP COLUMN MOVIE_DIRECTOR;
+
+Write a SQL statement to drop the existing primary key from the movies_renamed table.
+
+ALTER TABLE MOVIES_RENAMED
+DROP COLUMN MOVIE_ID;
+
+Write a SQL statement to add primary key for the column movie_id in the movies_renamed table.
+ALTER TABLE MOVIES_RENAMED
+ADD COLUMN MOVIE_ID INT PRIMARY KEY ;
+
+Write a SQL statement to add a foreign key constraint named fk_candidate_id on company_id column referencing to the primar
+y key company_id from the company table.
+
+//LESSON:DROP TABLE 
+
+//CREATE TABLE TASKS(
+TASK_ID INT AUTO_INCREMENT PRIMARY KEY,
+TITLE VARCHAR(255) NOT NULL,
+START_DATE DATE,
+DUE_DATE DATE,
+PRIORITY TINYINT NOT NULL DEFAULT 3,
+DESCRIPTION TEXT);
+
+//INSERT INTO TASKS(TITLE ,PRIORITY) VALUES ('LEARN MYSQL INSERT STATEMENT',1);
+//SELECT * FROM TASKS;
++---------+------------------------------+------------+----------+----------+-------------+
+| TASK_ID | TITLE                        | START_DATE | DUE_DATE | PRIORITY | DESCRIPTION |
++---------+------------------------------+------------+----------+----------+-------------+
+|       1 | LEARN MYSQL INSERT STATEMENT | NULL       | NULL     |        1 | NULL        |
++---------+------------------------------+------------+----------+----------+-------------+
+1 row in set (0.00 sec)
+
+//INSERT INTO TASKS VALUES(2,'INSERT STATEMENT WITHOUT COLOUM','2024-06-01','2024-06-02',2,'THE SEQUENCE SHOULD BE MAINTAIN
+ED WHENEVER WE ARE USING THE INERT /N WITHOUT SPECIFYING THE COLUM NAMES' );
+
+
++---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+| TASK_ID | TITLE                           | START_DATE | DUE_DATE   | PRIORITY | DESCRIPTION                                                                                             |
++---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+|       1 | LEARN MYSQL INSERT STATEMENT    | NULL       | NULL       |        1 | NULL                                                                                                    |
+|       2 | INSERT STATEMENT WITHOUT COLOUM | 2024-06-01 | 2024-06-02 |        2 | THE SEQUENCE SHOULD BE MAINTAINED WHENEVER WE ARE USING THE INSERT \N WITHOUT SPECIFYING THE COLUM NAMES |
++---------+---------------------------------+------------+------------+----------+--------------------------------------------------------------------------------------
+// PRESENT DATE:
+ INSERT INTO TASKS
+    -> (TITLE,START_DATE,DUE_DATE)
+    -> VALUES("PRESENT DATE",CURRENT_DATE(),CURRENT_DATE()+1);
+	
+	+---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+| TASK_ID | TITLE                           | START_DATE | DUE_DATE   | PRIORITY | DESCRIPTION                                                                                             |
++---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+|       1 | LEARN MYSQL INSERT STATEMENT    | NULL       | NULL       |        1 | NULL                                                                                                    |
+|       2 | INSERT STATEMENT WITHOUT COLOUM | 2024-06-01 | 2024-06-02 |        2 | THE SEQUENCE SHOULD BE MAINTAINED WHENEVER WE ARE USING THE INERT /N WITHOUT SPECIFYING THE COLUM NAMES |
+|       3 | PRESENT DATE                    | 2024-06-24 | 2024-06-25 |        3 | NULL                                                                                                    |
++---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+
+
+
+//INSERT MULTIPLE VA;LUES
+
+INSERT INTO TASKS (TITLE,PRIORITY) VALUES
+("HAI",1),
+("HAI",2),
+("HAI",4),
+("HAI",5);
+
+SELECT * FROM TASKS;
++---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+| TASK_ID | TITLE                           | START_DATE | DUE_DATE   | PRIORITY | DESCRIPTION                                                                                             |
++---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+|       1 | LEARN MYSQL INSERT STATEMENT    | NULL       | NULL       |        1 | NULL                                                                                                    |
+|       2 | INSERT STATEMENT WITHOUT COLOUM | 2024-06-01 | 2024-06-02 |        2 | THE SEQUENCE SHOULD BE MAINTAINED WHENEVER WE ARE USING THE INERT /N WITHOUT SPECIFYING THE COLUM NAMES |
+|       3 | PRESENT DATE                    | 2024-06-24 | 2024-06-25 |        3 | NULL                                                                                                    |
+|       4 | HAI                             | NULL       | NULL       |        1 | NULL                                                                                                    |
+|       5 | HAI                             | NULL       | NULL       |        2 | NULL                                                                                                    |
+|       6 | HAI                             | NULL       | NULL       |        4 | NULL                                                                                                    |
+|       7 | HAI                             | NULL       | NULL       |        5 | NULL                                                                                                    |
++---------+---------------------------------+------------+------------+----------+---------------------------------------------------------------------------------------------------------+
+
+
+======================================================================================================================================================================================
+25/06/2024
+
+source C:\Users\sivalingam.k\Downloads\mysqlsampledatabase.sql
+Query OK, 1 row affected (0.45 sec)
+
+Database changed
+Query OK, 0 rows affected, 1 warning (0.45 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected, 1 warning (0.08 sec)
+
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+Query OK, 0 rows affected (0.41 sec)
+
+Query OK, 0 rows affected, 1 warning (0.35 sec)
+
+Query OK, 0 rows affected (0.12 sec)
+
+Query OK, 0 rows affected (0.22 sec)
+
+Query OK, 0 rows affected (0.21 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+Query OK, 0 rows affected (0.19 sec)
+
+Query OK, 0 rows affected, 1 warning (0.20 sec)
+
+Query OK, 7 rows affected (0.09 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+Query OK, 110 rows affected (0.14 sec)
+Records: 110  Duplicates: 0  Warnings: 0
+
+Query OK, 7 rows affected (0.05 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+Query OK, 23 rows affected (0.07 sec)
+Records: 23  Duplicates: 0  Warnings: 0
+
+Query OK, 122 rows affected (0.12 sec)
+Records: 122  Duplicates: 0  Warnings: 0
+
+Query OK, 326 rows affected (0.10 sec)
+Records: 326  Duplicates: 0  Warnings: 0
+
+Query OK, 273 rows affected (0.06 sec)
+Records: 273  Duplicates: 0  Warnings: 0
+
+Query OK, 2996 rows affected (0.53 sec)
+Records: 2996  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++-------------------------+
+| Tables_in_classicmodels |
++-------------------------+
+| customers               |
+| employees               |
+| offices                 |
+| orderdetails            |
+| orders                  |
+| payments                |
+| productlines            |
+| products                |
++-------------------------+
+8 rows in set (0.11 sec)
+
+
+//-DISPLAY ONLY FIRSTNAME  AND LASTNAME ,EMAIL OF THE EMPLOYEE;
+SELECT FIRSTNAME,LASTNAME,EMAIL
+FROM EMPLOYEES;
++-----------+-----------+---------------------------------+
+| FIRSTNAME | LASTNAME  | EMAIL                           |
++-----------+-----------+---------------------------------+
+| Diane     | Murphy    | dmurphy@classicmodelcars.com    |
+| Mary      | Patterson | mpatterso@classicmodelcars.com  |
+| Jeff      | Firrelli  | jfirrelli@classicmodelcars.com  |
+| William   | Patterson | wpatterson@classicmodelcars.com |
+| Gerard    | Bondur    | gbondur@classicmodelcars.com    |
+| Anthony   | Bow       | abow@classicmodelcars.com       |
+| Leslie    | Jennings  | ljennings@classicmodelcars.com  |
+| Leslie    | Thompson  | lthompson@classicmodelcars.com  |
+| Julie     | Firrelli  | jfirrelli@classicmodelcars.com  |
+| Steve     | Patterson | spatterson@classicmodelcars.com |
+| Foon Yue  | Tseng     | ftseng@classicmodelcars.com     |
+| George    | Vanauf    | gvanauf@classicmodelcars.com    |
+| Loui      | Bondur    | lbondur@classicmodelcars.com    |
+| Gerard    | Hernandez | ghernande@classicmodelcars.com  |
+| Pamela    | Castillo  | pcastillo@classicmodelcars.com  |
+| Larry     | Bott      | lbott@classicmodelcars.com      |
+| Barry     | Jones     | bjones@classicmodelcars.com     |
+| Andy      | Fixter    | afixter@classicmodelcars.com    |
+| Peter     | Marsh     | pmarsh@classicmodelcars.com     |
+| Tom       | King      | tking@classicmodelcars.com      |
+| Mami      | Nishi     | mnishi@classicmodelcars.com     |
+| Yoshimi   | Kato      | ykato@classicmodelcars.com      |
+| Martin    | Gerard    | mgerard@classicmodelcars.com    |
++-----------+-----------+---------------------------------+
+
+
+
+//DISPLAY FULLNAME OF THE EMPLOYEE ('+' WILL NOT WORK INSTEAD USE 'CONCAT' IN MYSQL ONLY)
+SELECT CONCAT(FIRSTNAME," ",LASTNAME) FROM EMPLOYEES;
++--------------------------------+
+| CONCAT(FIRSTNAME," ",LASTNAME) |
++--------------------------------+
+| Diane Murphy                   |
+| Mary Patterson                 |
+| Jeff Firrelli                  |
+| William Patterson              |
+| Gerard Bondur                  |
+| Anthony Bow                    |
+| Leslie Jennings                |
+| Leslie Thompson                |
+| Julie Firrelli                 |
+| Steve Patterson                |
+| Foon Yue Tseng                 |
+| George Vanauf                  |
+| Loui Bondur                    |
+| Gerard Hernandez               |
+| Pamela Castillo                |
+| Larry Bott                     |
+| Barry Jones                    |
+| Andy Fixter                    |
+| Peter Marsh                    |
+| Tom King                       |
+| Mami Nishi                     |
+| Yoshimi Kato                   |
+| Martin Gerard                  |
++--------------------------------+
+
+//DISPLAY FULL NAME WITH ALIAS;
+
+//DISPLAY CURRENT DATE AND TIME 
+
+SELECT NOW() "DATETIME";
++---------------------+
+| DATETIME            |
++---------------------+
+| 2024-06-25 11:32:33 |
++---------------------+
+
+//DISPLAY CURRENT DATE ONLY:
+SELECT  CURRENT_DATE() DATE;
++------------+
+| DATE       |
++------------+
+| 2024-06-25 |
++------------+
+/DISPLAY CURRENT TIME ONLY:
+SELECT  CURRENT_TIME() TIME;
+
++----------+
+| TIME     |
++----------+
+| 11:35:33 |
++----------+
+
+//DISPLAY CURRENT LOGGED IN USER
+SELECT CURRENT_USER() USERNAME;
+
++----------------+
+| USERNAME       |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.01 s
+
+
+//DISPLAY OFFICES IN THE ASSCENDING ORDER BY CITY
+SELECT OFFICECODE,CITY,PHONE FROM OFFICES ORDER BY CITY ASC;
+
++------------+---------------+------------------+
+| OFFICECODE | CITY          | PHONE            |
++------------+---------------+------------------+
+| 2          | Boston        | +1 215 837 0825  |
+| 7          | London        | +44 20 7877 2041 |
+| 3          | NYC           | +1 212 555 3000  |
+| 4          | Paris         | +33 14 723 4404  |
+| 1          | San Francisco | +1 650 219 4782  |
+| 6          | Sydney        | +61 2 9264 2451  |
+| 5          | Tokyo         | +81 33 224 5000  |
++------------+---------------+------------------+
+
+//DISPLAY OFFICES IN THE dESCENDING ORDER BY CITY
+
+SELECT OFFICECODE,CITY,PHONE FROM OFFICES ORDER BY CITY DESC;
++------------+---------------+------------------+
+| OFFICECODE | CITY          | PHONE            |
++------------+---------------+------------------+
+| 5          | Tokyo         | +81 33 224 5000  |
+| 6          | Sydney        | +61 2 9264 2451  |
+| 1          | San Francisco | +1 650 219 4782  |
+| 4          | Paris         | +33 14 723 4404  |
+| 3          | NYC           | +1 212 555 3000  |
+| 7          | London        | +44 20 7877 2041 |
+| 2          | Boston        | +1 215 837 0825  |
++------------+---------------+------------------+
+
+// DISPLAY COUNTRY IN ASSCENDING AND CITY AS DESCENDING
+
+SELECT CITY,COUNTRY,PHONE,OFFICECODE FROM OFFICES ORDER BY COUNTRY ASC,CITY DESC;
+
++---------------+-----------+------------------+------------+
+| CITY          | COUNTRY   | PHONE            | OFFICECODE |
++---------------+-----------+------------------+------------+
+| Sydney        | Australia | +61 2 9264 2451  | 6          |
+| Paris         | France    | +33 14 723 4404  | 4          |
+| Tokyo         | Japan     | +81 33 224 5000  | 5          |
+| London        | UK        | +44 20 7877 2041 | 7          |
+| San Francisco | USA       | +1 650 219 4782  | 1          |
+| NYC           | USA       | +1 212 555 3000  | 3          |
+| Boston        | USA       | +1 215 837 0825  | 2          |
++---------------+-----------+------------------+------------+
+
+
+// SELECT ORDERNUMBER,PRICEEACH,QUANTITYORDERED FROM ORDERDETAILS LIMIT 10;
++-------------+-----------+-----------------+
+| ORDERNUMBER | PRICEEACH | QUANTITYORDERED |
++-------------+-----------+-----------------+
+|       10100 |    136.00 |              30 |
+|       10100 |     55.09 |              50 |
+|       10100 |     75.46 |              22 |
+|       10100 |     35.29 |              49 |
+|       10101 |    108.06 |              25 |
+|       10101 |    167.06 |              26 |
+|       10101 |     32.53 |              45 |
+|       10101 |     44.35 |              46 |
+|       10102 |     95.55 |              39 |
+|       10102 |     43.13 |              41 |
++-------------+-----------+-----------------+
+
+
+// SELECT ORDERNUMBER,PRICEEACH,QUANTITYORDERED,PRICEEACH*QUANTITYORDERED AS TOTAL PRICE FROM ORDERDETAILS ;
+
+(SHOWING WHOLE TABLE WITH ONE MORE COLUM TOTAL PRICE)
+
+
+//SELECT ORDERNUMBER,PRICEEACH,QUANTITYORDERED,PRICEEACH*QUANTITYORDERED AS TOTALPRICE FROM ORDERDETAILS ORDER BY TOTALPRICE ASC LIMIT 10;;
++-------------+-----------+-----------------+------------+
+| ORDERNUMBER | PRICEEACH | QUANTITYORDERED | TOTALPRICE |
++-------------+-----------+-----------------+------------+
+|       10419 |     32.10 |              15 |     481.50 |
+|       10420 |     35.29 |              15 |     529.35 |
+|       10322 |     26.55 |              20 |     531.00 |
+|       10407 |     91.11 |               6 |     546.66 |
+|       10425 |     50.32 |              11 |     553.52 |
+|       10344 |     27.88 |              20 |     557.60 |
+|       10110 |     28.88 |              20 |     577.60 |
+|       10280 |     29.87 |              20 |     597.40 |
+|       10408 |     41.03 |              15 |     615.45 |
+|       10409 |    104.25 |               6 |     625.50 |
++-------------+-----------+-----------------+------------+
+
+//DISPLAY UNIQUE STATUS FROM THE ORDERS TABLE;
+
+SELECT DISTINCT STATUS FROM ORDERS;
++------------+
+| STATUS     |
++------------+
+| Shipped    |
+| Resolved   |
+| Cancelled  |
+| On Hold    |
+| Disputed   |
+| In Process |
++------------+
+
+//FIXING THE ORDER INSTEADOF USING ORDER BY;
+SELECT ORDERNUMBER,STATUS FROM ORDERS
+ORDER BY FIELD (
+STATUS,'IN PROCESS','CANCELLED','RESOLVED','DISPUTED','SHIPPED') LIMIT 20;
+
++-------------+------------+
+| ORDERNUMBER | STATUS     |
++-------------+------------+
+|       10401 | On Hold    |
+|       10407 | On Hold    |
+|       10414 | On Hold    |
+|       10334 | On Hold    |
+|       10422 | In Process |
+|       10420 | In Process |
+|       10424 | In Process |
+|       10425 | In Process |
+|       10423 | In Process |
+|       10421 | In Process |
+|       10253 | Cancelled  |
+|       10260 | Cancelled  |
+|       10248 | Cancelled  |
+|       10262 | Cancelled  |
+|       10179 | Cancelled  |
+|       10167 | Cancelled  |
+|       10327 | Resolved   |
+|       10386 | Resolved   |
+|       10367 | Resolved   |
+|       10164 | Resolved   |
++-------------+------------+
+
+
+
+//
+SELECT FIRSTNAME,REPORTSTO FROM EMPLOYEES ORDER BY REPORTSTO;
++-----------+-----------+
+| FIRSTNAME | REPORTSTO |
++-----------+-----------+
+| Diane     |      NULL |
+| Mary      |      1002 |
+| Jeff      |      1002 |
+| William   |      1056 |
+| Gerard    |      1056 |
+| Anthony   |      1056 |
+| Mami      |      1056 |
+| Andy      |      1088 |
+| Peter     |      1088 |
+| Tom       |      1088 |
+| Loui      |      1102 |
+| Gerard    |      1102 |
+| Pamela    |      1102 |
+| Larry     |      1102 |
+| Barry     |      1102 |
+| Martin    |      1102 |
+| Leslie    |      1143 |
+| Leslie    |      1143 |
+| Julie     |      1143 |
+| Steve     |      1143 |
+| Foon Yue  |      1143 |
+| George    |      1143 |
+| Yoshimi   |      1621 |
++-----------+-----------+
+
+//fILTERING: IN DATABASE,FILTERING CAN ACHIEVED IN RDBMS USING "WHERE" CLAUSE
+
+SELECT ORDERNUMBER,ORDERDATE,STATUS FROM ORDERS WHERE STATUS='IN PROCESS';                                                                           
+
++-------------+------------+------------+
+| ORDERNUMBER | ORDERDATE  | STATUS     |
++-------------+------------+------------+
+|       10420 | 2005-05-29 | In Process |
+|       10421 | 2005-05-29 | In Process |
+|       10422 | 2005-05-30 | In Process |
+|       10423 | 2005-05-30 | In Process |
+|       10424 | 2005-05-31 | In Process |
+|       10425 | 2005-05-31 | In Process |
++-------------+------------+------------+
+
+//SELECT ORDERNUMBER,ORDERDATE,STATUS FROM ORDERS WHERE STATUS='IN PROCESS' ORDER BY ORDERDATE;   
+
++-------------+------------+------------+
+| ORDERNUMBER | ORDERDATE  | STATUS     |
++-------------+------------+------------+
+|       10420 | 2005-05-29 | In Process |
+|       10421 | 2005-05-29 | In Process |
+|       10422 | 2005-05-30 | In Process |
+|       10423 | 2005-05-30 | In Process |
+|       10424 | 2005-05-31 | In Process |
+|       10425 | 2005-05-31 | In Process |
++-------------+------------+------------+
+
+//SELECT FIRSTNAME,LASTNAME ,JOBTITLE FROM EMPLOYEES WHERE JOBTITLE='SALES REP';
++-----------+-----------+-----------+
+| FIRSTNAME | LASTNAME  | JOBTITLE  |
++-----------+-----------+-----------+
+| Leslie    | Jennings  | Sales Rep |
+| Leslie    | Thompson  | Sales Rep |
+| Julie     | Firrelli  | Sales Rep |
+| Steve     | Patterson | Sales Rep |
+| Foon Yue  | Tseng     | Sales Rep |
+| George    | Vanauf    | Sales Rep |
+| Loui      | Bondur    | Sales Rep |
+| Gerard    | Hernandez | Sales Rep |
+| Pamela    | Castillo  | Sales Rep |
+| Larry     | Bott      | Sales Rep |
+| Barry     | Jones     | Sales Rep |
+| Andy      | Fixter    | Sales Rep |
+| Peter     | Marsh     | Sales Rep |
+| Tom       | King      | Sales Rep |
+| Mami      | Nishi     | Sales Rep |
+| Yoshimi   | Kato      | Sales Rep |
+| Martin    | Gerard    | Sales Rep |
++-----------+-----------+-----------+
+
+//SELECT DISTINCT JOBTITLE FROM EMPLOYEE;
+
++----------------------+
+| JOBTITLE             |
++----------------------+
+| President            |
+| VP Sales             |
+| VP Marketing         |
+| Sales Manager (APAC) |
+| Sale Manager (EMEA)  |
+| Sales Manager (NA)   |
+| Sales Rep            |
++----------------------+
+
+//DISPLAY THE NAMES OF THE EMPLOYEES WHOS  JOB IS PRESIDENT OR VPSALES
+
+SELECT FIRSTNAME,LASTNAME ,JOBTITLE FROM EMPLOYEES WHERE JOBTITLE IN ('PRESIDENT','VP SALES');
+
++-----------+-----------+-----------+
+| FIRSTNAME | LASTNAME  | JOBTITLE  |
++-----------+-----------+-----------+
+| Diane     | Murphy    | President |
+| Mary      | Patterson | VP Sales  |
++-----------+-----------+-----------+
+
+SELECT FIRSTNAME,LASTNAME ,JOBTITLE FROM EMPLOYEES WHERE JOBTITLE IN ('PRESIDENT','VP SALES','SALES REP');
+
++-----------+-----------+-----------+
+| FIRSTNAME | LASTNAME  | JOBTITLE  |
++-----------+-----------+-----------+
+| Diane     | Murphy    | President |
+| Mary      | Patterson | VP Sales  |
+| Leslie    | Jennings  | Sales Rep |
+| Leslie    | Thompson  | Sales Rep |
+| Julie     | Firrelli  | Sales Rep |
+| Steve     | Patterson | Sales Rep |
+| Foon Yue  | Tseng     | Sales Rep |
+| George    | Vanauf    | Sales Rep |
+| Loui      | Bondur    | Sales Rep |
+| Gerard    | Hernandez | Sales Rep |
+| Pamela    | Castillo  | Sales Rep |
+| Larry     | Bott      | Sales Rep |
+| Barry     | Jones     | Sales Rep |
+| Andy      | Fixter    | Sales Rep |
+| Peter     | Marsh     | Sales Rep |
+| Tom       | King      | Sales Rep |
+| Mami      | Nishi     | Sales Rep |
+| Yoshimi   | Kato      | Sales Rep |
+| Martin    | Gerard    | Sales Rep |
++-----------+-----------+-----------+
+
+SELECT FIRSTNAME,LASTNAME ,JOBTITLE ,REPORTSTO FROM EMPLOYEES WHERE JOBTITLE IN ('PRESIDENT','VP SALES','SALES REP') AND REPORTSTO >=1002;
+
+
++-----------+-----------+-----------+-----------+
+| FIRSTNAME | LASTNAME  | JOBTITLE  | REPORTSTO |
++-----------+-----------+-----------+-----------+
+| Mary      | Patterson | VP Sales  |      1002 |
+| Leslie    | Jennings  | Sales Rep |      1143 |
+| Leslie    | Thompson  | Sales Rep |      1143 |
+| Julie     | Firrelli  | Sales Rep |      1143 |
+| Steve     | Patterson | Sales Rep |      1143 |
+| Foon Yue  | Tseng     | Sales Rep |      1143 |
+| George    | Vanauf    | Sales Rep |      1143 |
+| Loui      | Bondur    | Sales Rep |      1102 |
+| Gerard    | Hernandez | Sales Rep |      1102 |
+| Pamela    | Castillo  | Sales Rep |      1102 |
+| Larry     | Bott      | Sales Rep |      1102 |
+| Barry     | Jones     | Sales Rep |      1102 |
+| Andy      | Fixter    | Sales Rep |      1088 |
+| Peter     | Marsh     | Sales Rep |      1088 |
+| Tom       | King      | Sales Rep |      1088 |
+| Mami      | Nishi     | Sales Rep |      1056 |
+| Yoshimi   | Kato      | Sales Rep |      1621 |
+| Martin    | Gerard    | Sales Rep |      1102 |
++-----------+-----------+-----------+-----------+
+
+//sorting:
+
+Order By,asc,desc,fields
+limit
+where:
+comparision operator:=,<,>,<=,>=,!=
+Logical Operators:and,or,not
+other operators:in,not in,between ,not between, like,not like
+
+
+
+//DISPLAY PRODUCTNAME WHICH ONE NAME IS START WITH A
+SELECT  PRODUCTNAME FROM PRODUCTS WHERE PRODUCTNAME LIKE 'A%';
++--------------------------------+
+| PRODUCTNAME                    |
++--------------------------------+
+| American Airlines: B767-300    |
+| America West Airlines B757-200 |
+| ATA: B757-300                  |
+| American Airlines: MD-11S      |
++--------------------------------+
+
+//DISPLAY PRODUCTNAME WHICH ONE NAME IS START WITH A AND ENDS WITH DATABASE
+SELECT  PRODUCTNAME FROM PRODUCTS WHERE PRODUCTNAME LIKE 'A%R';
+
++---------------------------+
+| PRODUCTNAME               |
++---------------------------+
+| American Airlines: MD-11S |
++---------------------------+
+
+//DISPLAY THE NAME OF THE EMPLOYEE WHOS THIRD LETTER IS 'R';
+SELECT FIRSTNAME FROM EMPLOYEES WHERE FIRSTNAME LIKE '__R%';
+
++-----------+
+| FIRSTNAME |
++-----------+
+| Mary      |
+| Gerard    |
+| Gerard    |
+| Larry     |
+| Barry     |
+| Martin    |
++-----------+
+//ESCAPE CAHRACTER '\'
+============================================================================
+ SELECT PRODUCTNAME,PRODUCTCODE FROM PRODUCTS WHERE PRODUCTCODE LIKE '%\_20%';
++-------------------------------------------+-------------+
+| PRODUCTNAME                               | PRODUCTCODE |
++-------------------------------------------+-------------+
+| 1996 Moto Guzzi 1100i                     | S10_2016    |
+| 1960 BSA Gold Star DBD34                  | S24_2000    |
+| 18th century schooner                     | S24_2011    |
+| 1938 Cadillac V-16 Presidential Limousine | S24_2022    |
+| HMS Bounty                                | S700_2047   |
++-------------------------------------------+-------------+
+
+
+//BETWEEN:
+
+             SELECT ORDERNUMBER,ORDERDATE FROM ORDERS WHERE ORDERDATE  BETWEEN '2003-03-01' AND '2003-03-03';
++-------------+------------+
+| ORDERNUMBER | ORDERDATE  |
++-------------+------------+
+|       10108 | 2003-03-03 |
++-------------+------------+                     
+
+SELECT PRODUCTCODE,PRODUCTNAME,BUYPRICE FROM PRODUCTS WHERE BUYPRICE BETWEEN 90 AND 100;
++-------------+--------------------------------------+----------+
+| PRODUCTCODE | PRODUCTNAME                          | BUYPRICE |
++-------------+--------------------------------------+----------+
+| S10_1949    | 1952 Alpine Renault 1300             |    98.58 |
+| S10_4698    | 2003 Harley-Davidson Eagle Drag Bike |    91.02 |
+| S12_1099    | 1968 Ford Mustang                    |    95.34 |
+| S12_1108    | 2001 Ferrari Enzo                    |    95.59 |
+| S18_1984    | 1995 Honda Civic                     |    93.89 |
+| S18_4027    | 1970 Triumph Spitfire                |    91.92 |
+| S24_3856    | 1956 Porsche 356A Coupe              |    98.30 |
++-------------+--------------------------------------+----------+
+
+	SELECT ORDERNUMBER,REQUIREDDATE,STATUS FROM ORDERS
+	WHERE STATUS IN ('SHIPPED','IN PROCESS') AND REQUIREDDATE BETWEEN '2003-01-01' AND '2003-03-03';
++-------------+--------------+---------+
+| ORDERNUMBER | REQUIREDDATE | STATUS  |
++-------------+--------------+---------+
+|       10100 | 2003-01-13   | Shipped |
+|       10101 | 2003-01-18   | Shipped |
+|       10102 | 2003-01-18   | Shipped |
+|       10103 | 2003-02-07   | Shipped |
+|       10104 | 2003-02-09   | Shipped |
+|       10105 | 2003-02-21   | Shipped |
+|       10106 | 2003-02-24   | Shipped |
+|       10107 | 2003-03-03   | Shipped |
++-------------+--------------+---------+
+
+  SELECT CUSTOMERNAME,CREDITLIMIT FROM CUSTOMERS ORDER BY CREDITLIMIT LIMIT 10;
++----------------------------+-------------+
+| CUSTOMERNAME               | CREDITLIMIT |
++----------------------------+-------------+
+| Schuyler Imports           |        0.00 |
+| Messner Shopping Network   |        0.00 |
+| Porto Imports Co.          |        0.00 |
+| American Souvenirs Inc     |        0.00 |
+| BG&E Collectables          |        0.00 |
+| Franken Gifts, Co          |        0.00 |
+| Havel & Zbyszek Co         |        0.00 |
+| Nat├╝rlich Autos           |        0.00 |
+| Asian Shopping Network, Co |        0.00 |
+| ANG Resellers              |        0.00 |
++----------------------------+-------------+
+
+//DISPLAY 5 CUSTOMERS  WHOSE CREDIT LIMIT IS HIGH;
+SELECT CUSTOMERNAME,CREDITLIMIT FROM CUSTOMERS ORDER BY  CREDITLIMIT DESC LIMIT 5;
++------------------------------+-------------+
+| CUSTOMERNAME                 | CREDITLIMIT |
++------------------------------+-------------+
+| Euro+ Shopping Channel       |   227600.00 |
+| Mini Gifts Distributors Ltd. |   210500.00 |
+| Vida Sport, Ltd              |   141300.00 |
+| Muscle Machine Inc           |   138500.00 |
+| AV Stores, Co.               |   136800.00 |
++------------------------------+-------------+
+
+//SELECT CUSTOMERNAME,CITY FROM CUSTOMERS ORDER BY CITY DESC LIMIT 6,5;(6 IS STARTING POINT ,5 IS NUMBER OF RECORDS)
++--------------------------------+------------+
+| CUSTOMERNAME                   | CITY       |
++--------------------------------+------------+
+| Alpha Cognac                   | Toulouse   |
+| Amica Models & Co.             | Torino     |
+| Stuttgart Collectable Exchange | Stuttgart  |
+| Mini Caravy                    | Strasbourg |
+| Baane Mini Imports             | Stavern    |
++--------------------------------+------------+
+
+
+TOP SECOND LARGEST RECORD;
+----------------------------------------------------------------------------------------------------------------------------------------------
+SELECT CUSTOMERNAME,CREDITLIMIT FROM CUSTOMERS ORDER BY CREDITLIMIT DESC LIMIT 1,1;
++------------------------------+-------------+
+| CUSTOMERNAME                 | CREDITLIMIT |
++------------------------------+-------------+
+| Mini Gifts Distributors Ltd. |   210500.00 |
++------------------------------+-------------+
+
+
+AGGREGATION(GROUPING):
+======================================================================================================================================
+SELECT COUNT(*) FROM EMPLOYEES;
+
++----------+
+| COUNT(*) |
++----------+
+|       23 |
++----------+
+
+
+//MAX:
+SELECT MAX(QUANTITYORDERED),MAX(PRICEEACH) FROM ORDERDETAILS;
++----------------------+----------------+
+| MAX(QUANTITYORDERED) | MAX(PRICEEACH) |
++----------------------+----------------+
+|                   97 |         214.30 |
++----------------------+----------------+
+
+
+/mIXED:
+
+SELECT PRODUCTCODE,MAX(QUANTITYORDERED) MAXQUANTITY,
+MIN(QUANTITYORDERED) MIMQUANTITY,
+
+AVG(QUANTITYORDERED) AVGQUANTITY,
+
+COUNT(PRODUCTCODE) TOTAL_COUNT
+
+ FROM ORDERDETAILS GROUP BY PRODUCTCODE,PRICEEACH LIMIT 10;
+
++-------------+-------------+-------------+-------------+-------------+
+| PRODUCTCODE | MAXQUANTITY | MIMQUANTITY | AVGQUANTITY | TOTAL_COUNT |
++-------------+-------------+-------------+-------------+-------------+
+| S18_1749    |          30 |          26 |     28.0000 |           2 |
+| S18_2248    |          50 |          26 |     37.3333 |           3 |
+| S18_4409    |          36 |          22 |     29.0000 |           2 |
+| S24_3969    |          49 |          15 |     36.2500 |           4 |
+| S18_2325    |          25 |          25 |     25.0000 |           1 |
+| S18_2795    |          50 |          23 |     33.5000 |           4 |
+| S24_1937    |          45 |          45 |     45.0000 |           1 |
+| S24_2022    |          46 |          46 |     46.0000 |           1 |
+| S18_1342    |          39 |          37 |     38.0000 |           2 |
+| S18_1367    |          41 |          41 |     41.0000 |           1 |
++-------------+-------------+-------------+-------------+-------------+
+
+
+SELECT PRODUCTCODE,MAX(QUANTITYORDERED) MAXQUANTITY,
+MIN(QUANTITYORDERED) MIMQUANTITY,
+AVG(QUANTITYORDERED) AVGQUANTITY,
+COUNT(PRODUCTCODE) TOTAL_COUNT
+ FROM ORDERDETAILS 
+ WHERE PRICEEACH > 100
+ GROUP BY PRODUCTCODE,PRICEEACH 
+ HAVING COUNT(PRODUCTCODE)>4
+ ORDER BY PRODUCTCODE
+ LIMIT 10;
+
++-------------+-------------+-------------+-------------+-------------+
+| PRODUCTCODE | MAXQUANTITY | MIMQUANTITY | AVGQUANTITY | TOTAL_COUNT |
++-------------+-------------+-------------+-------------+-------------+
+| S12_1666    |          49 |          21 |     35.8000 |           5 |
+| S12_2823    |          49 |          20 |     33.8000 |           5 |
+| S12_3148    |          47 |          34 |     40.0000 |           5 |
+| S18_1129    |          42 |          23 |     34.0000 |           5 |
+| S18_1129    |          38 |          25 |     30.8000 |           5 |
+| S18_1749    |          42 |          21 |     32.5000 |           6 |
+| S18_3232    |          36 |          25 |     29.1667 |           6 |
+| S18_4027    |          50 |          23 |     30.0000 |           5 |
+| S18_4721    |          48 |          28 |     39.6000 |           5 |
+| S18_4721    |          48 |          20 |     34.8000 |           5 |
++-------------+-------------+-------------+-------------+-------------+
+
+
+
+DAY 3:JOINS
+=======================================================================================================================================================
+
+
+JOIN TWO TABLES;
+
+
+SELECT PRODUCTCODE,PRODUCTNAME,TEXTDESCRIPTION
+FROM PRODUCTS P INNER JOIN PRODUCTLINES PL
+ON P.PRODUCTLINE=PL.PRODUCTLINE;
+
++-------------+---------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| PRODUCTCODE | PRODUCTNAME                                 | TEXTDESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
++-------------+---------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| S10_1949    | 1952 Alpine Renault 1300                    | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S10_4757    | 1972 Alfa Romeo GTA                         | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S10_4962    | 1962 LanciaA Delta 16V                      | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S12_1099    | 1968 Ford Mustang                           | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S12_1108    | 2001 Ferrari Enzo                           | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S12_3148    | 1969 Corvair Monza                          | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S12_3380    | 1968 Dodge Charger                          | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S12_3891    | 1969 Ford Falcon                            | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S12_3990    | 1970 Plymouth Hemi Cuda                     | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S12_4675    | 1969 Dodge Charger                          | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_1129    | 1993 Mazda RX-7                             | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_1589    | 1965 Aston Martin DB5                       | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_1889    | 1948 Porsche 356-A Roadster                 | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_1984    | 1995 Honda Civic                            | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_2238    | 1998 Chrysler Plymouth Prowler              | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_2870    | 1999 Indy 500 Monte Carlo SS                | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_3232    | 1992 Ferrari 360 Spider red                 | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_3233    | 1985 Toyota Supra                           | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_3278    | 1969 Dodge Super Bee                        | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_3482    | 1976 Ford Gran Torino                       | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_3685    | 1948 Porsche Type 356 Roadster              | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_4027    | 1970 Triumph Spitfire                       | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_4721    | 1957 Corvette Convertible                   | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S18_4933    | 1957 Ford Thunderbird                       | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_1046    | 1970 Chevy Chevelle SS 454                  | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_1444    | 1970 Dodge Coronet                          | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_1628    | 1966 Shelby Cobra 427 S/C                   | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_2766    | 1949 Jaguar XK 120                          | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_2840    | 1958 Chevy Corvette Limited Edition         | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_2887    | 1952 Citroen-15CV                           | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_2972    | 1982 Lamborghini Diablo                     | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_3191    | 1969 Chevrolet Camaro Z28                   | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_3371    | 1971 Alpine Renault 1600s                   | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_3432    | 2002 Chevy Corvette                         | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_3856    | 1956 Porsche 356A Coupe                     | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_4048    | 1992 Porsche Cayenne Turbo Silver           | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S24_4620    | 1961 Chevrolet Impala                       | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S700_2824   | 1982 Camaro Z28                             | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. |
+| S10_1678    | 1969 Harley Davidson Ultimate Chopper       | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S10_2016    | 1996 Moto Guzzi 1100i                       | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S10_4698    | 2003 Harley-Davidson Eagle Drag Bike        | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S12_2823    | 2002 Suzuki XREO                            | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S18_2625    | 1936 Harley Davidson El Knucklehead         | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S18_3782    | 1957 Vespa GS150                            | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S24_1578    | 1997 BMW R 1100 S                           | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S24_2000    | 1960 BSA Gold Star DBD34                    | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S24_2360    | 1982 Ducati 900 Monster                     | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S32_1374    | 1997 BMW F650 ST                            | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S32_2206    | 1982 Ducati 996 R                           | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S32_4485    | 1974 Ducati 350 Mk3 Desmo                   | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S50_4713    | 2002 Yamaha YZR M1                          | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             |
+| S18_1662    | 1980s Black Hawk Helicopter                 | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S18_2581    | P-51-D Mustang                              | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S24_1785    | 1928 British Royal Navy Airplane            | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S24_2841    | 1900s Vintage Bi-Plane                      | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S24_3949    | Corsair F4U ( Bird Cage)                    | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S24_4278    | 1900s Vintage Tri-Plane                     | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S700_1691   | American Airlines: B767-300                 | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S700_2466   | America West Airlines B757-200              | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S700_2834   | ATA: B757-300                               | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S700_3167   | F/A 18 Hornet 1/72                          | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S700_4002   | American Airlines: MD-11S                   | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S72_1253    | Boeing X-32A JSF                            | Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.                                                                                                                                                                                                                                                                                                                                                                                               |
+| S18_3029    | 1999 Yamaha Speed Boat                      | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S24_2011    | 18th century schooner                       | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S700_1138   | The Schooner Bluenose                       | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S700_1938   | The Mayflower                               | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S700_2047   | HMS Bounty                                  | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S700_2610   | The USS Constitution Ship                   | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S700_3505   | The Titanic                                 | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S700_3962   | The Queen Mary                              | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S72_3212    | Pont Yacht                                  | The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| S18_3259    | Collectable Wooden Train                    | Model trains are a rewarding hobby for enthusiasts of all ages. Whether you're looking for collectible wooden trains, electric streetcars or locomotives, you'll find a number of great choices for any budget within this category. The interactive aspect of trains makes toy trains perfect for young children. The wooden train sets are ideal for children under the age of 5.                                                                                                                                                                                                                                                                                                                                                                             |
+| S32_3207    | 1950's Chicago Surface Lines Streetcar      | Model trains are a rewarding hobby for enthusiasts of all ages. Whether you're looking for collectible wooden trains, electric streetcars or locomotives, you'll find a number of great choices for any budget within this category. The interactive aspect of trains makes toy trains perfect for young children. The wooden train sets are ideal for children under the age of 5.                                                                                                                                                                                                                                                                                                                                                                             |
+| S50_1514    | 1962 City of Detroit Streetcar              | Model trains are a rewarding hobby for enthusiasts of all ages. Whether you're looking for collectible wooden trains, electric streetcars or locomotives, you'll find a number of great choices for any budget within this category. The interactive aspect of trains makes toy trains perfect for young children. The wooden train sets are ideal for children under the age of 5.                                                                                                                                                                                                                                                                                                                                                                             |
+| S12_1666    | 1958 Setra Bus                              | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S12_4473    | 1957 Chevy Pickup                           | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S18_1097    | 1940 Ford Pickup Truck                      | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S18_2319    | 1964 Mercedes Tour Bus                      | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S18_2432    | 1926 Ford Fire Engine                       | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S18_4600    | 1940s Ford truck                            | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S24_2300    | 1962 Volkswagen Microbus                    | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S32_1268    | 1980ÔÇÖs GM Manhattan Express               | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S32_2509    | 1954 Greyhound Scenicruiser                 | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S32_3522    | 1996 Peterbilt 379 Stake Bed with Outrigger | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S50_1392    | Diamond T620 Semi-Skirted Tanker            | The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.                                                                                                                                                                                                                                                                                                                          |
+| S18_1342    | 1937 Lincoln Berline                        | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_1367    | 1936 Mercedes-Benz 500K Special Roadster    | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_1749    | 1917 Grand Touring Sedan                    | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_2248    | 1911 Ford Town Car                          | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_2325    | 1932 Model A Ford J-Coupe                   | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_2795    | 1928 Mercedes-Benz SSK                      | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_2949    | 1913 Ford Model T Speedster                 | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_2957    | 1934 Ford V8 Coupe                          | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_3136    | 18th Century Vintage Horse Carriage         | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_3140    | 1903 Ford Model A                           | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_3320    | 1917 Maxwell Touring Car                    | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_3856    | 1941 Chevrolet Special Deluxe Cabriolet     | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_4409    | 1932 Alfa Romeo 8C2300 Spider Sport         | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_4522    | 1904 Buick Runabout                         | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S18_4668    | 1939 Cadillac Limousine                     | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S24_1937    | 1939 Chevrolet Deluxe Coupe                 | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S24_2022    | 1938 Cadillac V-16 Presidential Limousine   | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S24_3151    | 1912 Ford Model T Delivery Wagon            | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S24_3420    | 1937 Horch 930V Limousine                   | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S24_3816    | 1940 Ford Delivery Sedan                    | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S24_3969    | 1936 Mercedes Benz 500k Roadster            | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S24_4258    | 1936 Chrysler Airflow                       | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S32_4289    | 1928 Ford Phaeton Deluxe                    | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
+| S50_1341    | 1930 Buick Marquette Phaeton                | Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.                                                                                                                                                                                                                                            |
++-------------+---------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+WANT TO SELECT FIRST NAME,LASTNAME FROM EMPLOYEE TABLE AND DEPARTMENT FROM DEPARTMENT TABLE;
+
+
+
+SELECT EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT_NAME
+FROM DEPARTMENTS D
+INNER JOIN EMPLOYEE E
+ON D.DEPARTMENT_ID=E.DEPARTMENT_ID;
+
++-------------+-------------+-------------+----------------------+
+| EMPLOYEE_ID | FIRST_NAME  | LAST_NAME   | DEPARTMENT_NAME      |
++-------------+-------------+-------------+----------------------+
+|         100 | Steven      | King        | Marketing            |
+|         101 | Neena       | Kochhar     | Marketing            |
+|         102 | Lex         | De Haan     | Purchasing           |
+|         114 | Den         | Raphaely    | Purchasing           |
+|         117 | Sigal       | Tobias      | Purchasing           |
+|         106 | Valli       | Pataballa   | Human Resources      |
+|         107 | Diana       | Lorentz     | Human Resources      |
+|         122 | Payam       | Kaufling    | Human Resources      |
+|         120 | Matthew     | Weiss       | Shipping             |
+|         121 | Adam        | Fripp       | Shipping             |
+|         123 | Shanta      | Vollman     | Shipping             |
+|         125 | Julia       | Nayer       | Shipping             |
+|         126 | Irene       | Mikkilineni | Shipping             |
+|         128 | Steven      | Markle      | Shipping             |
+|         129 | Laura       | Bissot      | Shipping             |
+|         103 | Alexander   | Hunold      | IT                   |
+|         104 | Bruce       | Ernst       | IT                   |
+|         105 | David       | Austin      | IT                   |
+|         118 | Guy         | Himuro      | IT                   |
+|         116 | Shelli      | Baida       | Public Relations     |
+|         115 | Alexander   | Khoo        | Sales                |
+|         124 | Kevin       | Mourgos     | Sales                |
+|         127 | James       | Landry      | Executive            |
+|         108 | Nancy       | Greenberg   | Finance              |
+|         130 | Mozhe       | Atkinson    | Accounting           |
+|         119 | Karen       | Colmenares  | Corporate Tax        |
+|         113 | Luis        | Popp        | Control And Credit   |
+|         112 | Jose Manuel | Urman       | Shareholder Services |
+|         111 | Ismael      | Sciarra     | Benefits             |
+|         109 | Daniel      | Faviet      | Payroll              |
+|         110 | John        | Chen        | Payroll              |
++-------------+-------------+-------------+----------------------+
+
+SELECT O1.ORDERNUMBER,O1.STATUS,SUM(QUANTITYORDERED*PRICEEACH) TOTAL
+FROM ORDERS O1
+INNER JOIN ORDERDETAILS O2
+ON O1.ORDERNUMBER =O2.ORDERNUMBER
+GROUP BY O1.ORDERNUMBER
+LIMIT 10;
+
++-------------+---------+----------+
+| ORDERNUMBER | STATUS  | TOTAL    |
++-------------+---------+----------+
+|       10100 | Shipped | 10223.83 |
+|       10101 | Shipped | 10549.01 |
+|       10102 | Shipped |  5494.78 |
+|       10103 | Shipped | 50218.95 |
+|       10104 | Shipped | 40206.20 |
+|       10105 | Shipped | 53959.21 |
+|       10106 | Shipped | 52151.81 |
+|       10107 | Shipped | 22292.62 |
+|       10108 | Shipped | 51001.22 |
+|       10109 | Shipped | 25833.14 |
++-------------+---------+----------+
+
+
+
+CONNECTIG THREE TABES;
+=======================================================================
+SELECT ORDERNUMBER,ORDERDATE,PRODUCTNAME,QUANTITYORDERED,PRICEEACH
+FROM ORDERS
+INNER JOIN ORDERDETAILS USING (ORDERNUMBER)
+INNER JOIN PRODUCTS USING (PRODUCTCODE)
+ORDER BY ORDERNUMBER,ORDERLINENUMBER LIMIT 10;
+
++-------------+------------+-------------------------------------------+-----------------+-----------+
+| ORDERNUMBER | ORDERDATE  | PRODUCTNAME                               | QUANTITYORDERED | PRICEEACH |
++-------------+------------+-------------------------------------------+-----------------+-----------+
+|       10100 | 2003-01-06 | 1936 Mercedes Benz 500k Roadster          |              49 |     35.29 |
+|       10100 | 2003-01-06 | 1911 Ford Town Car                        |              50 |     55.09 |
+|       10100 | 2003-01-06 | 1917 Grand Touring Sedan                  |              30 |    136.00 |
+|       10100 | 2003-01-06 | 1932 Alfa Romeo 8C2300 Spider Sport       |              22 |     75.46 |
+|       10101 | 2003-01-09 | 1928 Mercedes-Benz SSK                    |              26 |    167.06 |
+|       10101 | 2003-01-09 | 1938 Cadillac V-16 Presidential Limousine |              46 |     44.35 |
+|       10101 | 2003-01-09 | 1939 Chevrolet Deluxe Coupe               |              45 |     32.53 |
+|       10101 | 2003-01-09 | 1932 Model A Ford J-Coupe                 |              25 |    108.06 |
+|       10102 | 2003-01-10 | 1936 Mercedes-Benz 500K Special Roadster  |              41 |     43.13 |
+|       10102 | 2003-01-10 | 1937 Lincoln Berline                      |              39 |     95.55 |
++-------------+------------+-------------------------------------------+-----------------+-----------+
+//ADD ONE MOR COLUM CUSTOMER NAME FROM CUSTOMERS TABLE
+
+SELECT ORDERNUMBER,ORDERDATE,PRODUCTNAME,QUANTITYORDERED,PRICEEACH,CUSTOMERNAME
+FROM ORDERS
+INNER JOIN CUSTOMERS USING (CUSTOMERNUMBER)
+INNER JOIN ORDERDETAILS USING (ORDERNUMBER)
+INNER JOIN PRODUCTS USING (PRODUCTCODE)
+
+ORDER BY ORDERNUMBER,ORDERLINENUMBER LIMIT 10;
+
++-------------+------------+-------------------------------------------+-----------------+-----------+------------------------------+
+| ORDERNUMBER | ORDERDATE  | PRODUCTNAME                               | QUANTITYORDERED | PRICEEACH | CUSTOMERNAME                 |
++-------------+------------+-------------------------------------------+-----------------+-----------+------------------------------+
+|       10100 | 2003-01-06 | 1936 Mercedes Benz 500k Roadster          |              49 |     35.29 | Online Diecast Creations Co. |
+|       10100 | 2003-01-06 | 1911 Ford Town Car                        |              50 |     55.09 | Online Diecast Creations Co. |
+|       10100 | 2003-01-06 | 1917 Grand Touring Sedan                  |              30 |    136.00 | Online Diecast Creations Co. |
+|       10100 | 2003-01-06 | 1932 Alfa Romeo 8C2300 Spider Sport       |              22 |     75.46 | Online Diecast Creations Co. |
+|       10101 | 2003-01-09 | 1928 Mercedes-Benz SSK                    |              26 |    167.06 | Blauer See Auto, Co.         |
+|       10101 | 2003-01-09 | 1938 Cadillac V-16 Presidential Limousine |              46 |     44.35 | Blauer See Auto, Co.         |
+|       10101 | 2003-01-09 | 1939 Chevrolet Deluxe Coupe               |              45 |     32.53 | Blauer See Auto, Co.         |
+|       10101 | 2003-01-09 | 1932 Model A Ford J-Coupe                 |              25 |    108.06 | Blauer See Auto, Co.         |
+|       10102 | 2003-01-10 | 1936 Mercedes-Benz 500K Special Roadster  |              41 |     43.13 | Vitachrome Inc.              |
+|       10102 | 2003-01-10 | 1937 Lincoln Berline                      |              39 |     95.55 | Vitachrome Inc.              |
++-------------+------------+-------------------------------------------+-----------------+-----------+------------------------------+
+
+
+//LEFT JOIN:
+SELECT C.CUSTOMERNUMBER,CUSTOMERNAME,ORDERNUMBER,STATUS
+FROM CUSTOMERS C
+LEFT JOIN ORDERS O
+ON C.CUSTOMERNUMBER=O.CUSTOMERNUMBER
+ORDER BY ORDERNUMBER DESC LIMIT 10;
+
++----------------+-------------------------------+-------------+------------+
+| CUSTOMERNUMBER | CUSTOMERNAME                  | ORDERNUMBER | STATUS     |
++----------------+-------------------------------+-------------+------------+
+|            119 | La Rochelle Gifts             |       10425 | In Process |
+|            141 | Euro+ Shopping Channel        |       10424 | In Process |
+|            314 | Petit Auto                    |       10423 | In Process |
+|            157 | Diecast Classics Inc.         |       10422 | In Process |
+|            124 | Mini Gifts Distributors Ltd.  |       10421 | In Process |
+|            282 | Souveniers And Things Co.     |       10420 | In Process |
+|            382 | Salzburg Collectables         |       10419 | Shipped    |
+|            412 | Extreme Desk Decorations, Ltd |       10418 | Shipped    |
+|            141 | Euro+ Shopping Channel        |       10417 | Disputed   |
+|            386 | L'ordine Souveniers           |       10416 | Shipped    |
++----------------+-------------------------------+-------------+------------+
+
+//WANT WHO ARE NOT ORDERED:
+SELECT C.CUSTOMERNUMBER,CUSTOMERNAME,ORDERNUMBER,STATUS
+FROM CUSTOMERS C
+LEFT JOIN ORDERS O
+ON C.CUSTOMERNUMBER=O.CUSTOMERNUMBER
+WHERE ORDERNUMBER IS NULL
+ORDER BY ORDERNUMBER DESC LIMIT 10;
+
++----------------+----------------------------+-------------+--------+
+| CUSTOMERNUMBER | CUSTOMERNAME               | ORDERNUMBER | STATUS |
++----------------+----------------------------+-------------+--------+
+|            125 | Havel & Zbyszek Co         |        NULL | NULL   |
+|            168 | American Souvenirs Inc     |        NULL | NULL   |
+|            169 | Porto Imports Co.          |        NULL | NULL   |
+|            206 | Asian Shopping Network, Co |        NULL | NULL   |
+|            223 | Nat├╝rlich Autos           |        NULL | NULL   |
+|            237 | ANG Resellers              |        NULL | NULL   |
+|            247 | Messner Shopping Network   |        NULL | NULL   |
+|            273 | Franken Gifts, Co          |        NULL | NULL   |
+|            293 | BG&E Collectables          |        NULL | NULL   |
+|            303 | Schuyler Imports           |        NULL | NULL   |
++----------------+----------------------------+-------------+--------+
+
+//rIGHT JOIN\
+
+SELECT EMPLOYEENUMBER,CUSTOMERNUMBER
+FROM CUSTOMERS
+RIGHT JOIN EMPLOYEES
+ON SALESREPEMPLOYEENUMBER=EMPLOYEENUMBER
+ORDER BY SALESREPEMPLOYEENUMBER DESC;
+
++----------------+----------------+
+| EMPLOYEENUMBER | CUSTOMERNUMBER |
++----------------+----------------+
+|           1702 |            216 |
+|           1702 |            298 |
+|           1702 |            344 |
+|           1702 |            376 |
+|           1702 |            458 |
+|           1702 |            484 |
+|           1621 |            148 |
+|           1621 |            177 |
+|           1621 |            211 |
+|           1621 |            385 |
+|           1621 |            398 |
+|           1612 |            166 |
+|           1612 |            323 |
+|           1612 |            357 |
+|           1612 |            412 |
+|           1612 |            496 |
+|           1611 |            114 |
+|           1611 |            276 |
+|           1611 |            282 |
+|           1611 |            333 |
+|           1611 |            471 |
+|           1504 |            121 |
+|           1504 |            128 |
+|           1504 |            144 |
+|           1504 |            167 |
+|           1504 |            189 |
+|           1504 |            259 |
+|           1504 |            299 |
+|           1504 |            415 |
+|           1504 |            448 |
+|           1501 |            186 |
+|           1501 |            187 |
+|           1501 |            201 |
+|           1501 |            240 |
+|           1501 |            311 |
+|           1501 |            324 |
+|           1501 |            334 |
+|           1501 |            489 |
+|           1401 |            145 |
+|           1401 |            227 |
+|           1401 |            249 |
+|           1401 |            278 |
+|           1401 |            314 |
+|           1401 |            381 |
+|           1401 |            382 |
+|           1401 |            386 |
+|           1401 |            452 |
+|           1401 |            473 |
+|           1370 |            103 |
+|           1370 |            119 |
+|           1370 |            141 |
+|           1370 |            171 |
+|           1370 |            209 |
+|           1370 |            242 |
+|           1370 |            256 |
+|           1337 |            146 |
+|           1337 |            172 |
+|           1337 |            250 |
+|           1337 |            350 |
+|           1337 |            353 |
+|           1337 |            406 |
+|           1323 |            131 |
+|           1323 |            175 |
+|           1323 |            202 |
+|           1323 |            260 |
+|           1323 |            319 |
+|           1323 |            328 |
+|           1323 |            447 |
+|           1323 |            486 |
+|           1286 |            151 |
+|           1286 |            168 |
+|           1286 |            181 |
+|           1286 |            233 |
+|           1286 |            424 |
+|           1286 |            455 |
+|           1286 |            456 |
+|           1216 |            157 |
+|           1216 |            198 |
+|           1216 |            286 |
+|           1216 |            362 |
+|           1216 |            363 |
+|           1216 |            462 |
+|           1188 |            173 |
+|           1188 |            204 |
+|           1188 |            320 |
+|           1188 |            339 |
+|           1188 |            379 |
+|           1188 |            495 |
+|           1166 |            112 |
+|           1166 |            205 |
+|           1166 |            219 |
+|           1166 |            239 |
+|           1166 |            347 |
+|           1166 |            475 |
+|           1165 |            124 |
+|           1165 |            129 |
+|           1165 |            161 |
+|           1165 |            321 |
+|           1165 |            450 |
+|           1165 |            487 |
+|           1002 |           NULL |
+|           1056 |           NULL |
+|           1076 |           NULL |
+|           1088 |           NULL |
+|           1102 |           NULL |
+|           1143 |           NULL |
+|           1619 |           NULL |
+|           1625 |           NULL |
++----------------+----------------+
+
+
+
+
+//SELF JOIN:
+
+
+SELECT CONCAT(M.LASTNAME," ",M.FIRSTNAME) "MANAGER",CONCAT(E.LASTNAME,"",E.FIRSTNAME) "EMPLOYEE"
+FROM EMPLOYEES E
+INNER JOIN EMPLOYEES M 
+ON M.EMPLOYEENUMBER=E.REPORTSTO
+ORDER BY MANAGER;
+
++-------------------+------------------+
+| MANAGER           | EMPLOYEE         |
++-------------------+------------------+
+| Bondur Gerard     | BondurLoui       |
+| Bondur Gerard     | HernandezGerard  |
+| Bondur Gerard     | CastilloPamela   |
+| Bondur Gerard     | BottLarry        |
+| Bondur Gerard     | JonesBarry       |
+| Bondur Gerard     | GerardMartin     |
+| Bow Anthony       | JenningsLeslie   |
+| Bow Anthony       | ThompsonLeslie   |
+| Bow Anthony       | FirrelliJulie    |
+| Bow Anthony       | PattersonSteve   |
+| Bow Anthony       | TsengFoon Yue    |
+| Bow Anthony       | VanaufGeorge     |
+| Murphy Diane      | PattersonMary    |
+| Murphy Diane      | FirrelliJeff     |
+| Nishi Mami        | KatoYoshimi      |
+| Patterson Mary    | PattersonWilliam |
+| Patterson Mary    | BondurGerard     |
+| Patterson Mary    | BowAnthony       |
+| Patterson Mary    | NishiMami        |
+| Patterson William | FixterAndy       |
+| Patterson William | MarshPeter       |
+| Patterson William | KingTom          |
++-------------------+------------------+
+
+
+//CARTESION JOINS
+
+SELECT E.*,
+D.* FROM EMPLOYEE E,
+DEPARTMENTS D;
+
+
+
+
+
+
+
+// sub query:
+
+SELECT LASTNAME,FIRSTNAME FROM EMPLOYEES 
+WHERE OFFICECODE IN (SELECT OFFICECODE
+FROM OFFICES WHERE COUNTRY='USA';
+
++-----------+-----------+
+| LASTNAME  | FIRSTNAME |
++-----------+-----------+
+| Murphy    | Diane     |
+| Patterson | Mary      |
+| Firrelli  | Jeff      |
+| Bow       | Anthony   |
+| Jennings  | Leslie    |
+| Thompson  | Leslie    |
+| Firrelli  | Julie     |
+| Patterson | Steve     |
+| Tseng     | Foon Yue  |
+| Vanauf    | George    |
++-----------+-----------+
+
+//FINING THE MAX PAYMENT
+
+SELECT * FROM PAYMENTS 
+WHERE AMOUNT=(SELECT MAX(AMOUNT) FROM PAYMENTS);
++----------------+-------------+-------------+-----------+
+| customerNumber | checkNumber | paymentDate | amount    |
++----------------+-------------+-------------+-----------+
+|            141 | JE105477    | 2005-03-18  | 120166.58 |
++----------------+-------------+-------------+-----------+
+
+//FINDING THE EMPLOYEE WHOS SALARY IS > THAN AVG SALARY
+SELECT * FROM PAYMENTS 
+WHERE AMOUNT>SELECT AVG(AMOUNT) FROM PAYMENTS);
+
+SELECT CUDTMERNAME FROM CUSTOMERS WHERE CUSTOMERNUMBER NOT IN (SELECT DISTINCT CUSTOMERNUMBER FROM ORDERS);
++--------------------------------+
+| CUSTOMERNAME                   |
++--------------------------------+
+| Havel & Zbyszek Co             |
+| American Souvenirs Inc         |
+| Porto Imports Co.              |
+| Asian Shopping Network, Co     |
+| Nat├╝rlich Autos               |
+| ANG Resellers                  |
+| Messner Shopping Network       |
+| Franken Gifts, Co              |
+| BG&E Collectables              |
+| Schuyler Imports               |
+| Der Hund Imports               |
+| Cramer Spezialit├ñten, Ltd     |
+| Asian Treasures, Inc.          |
+| SAR Distributors, Co           |
+| Kommission Auto                |
+| Lisboa Souveniers, Inc         |
+| Precious Collectables          |
+| Stuttgart Collectable Exchange |
+| Feuer Online Stores, Inc       |
+| Warburg Exchange               |
+| Anton Designs, Ltd.            |
+| Mit Vergn├╝gen & Co.           |
+| Kremlin Collectables, Co.      |
+| Raanan Stores, Inc             |
++--------------------------------+
+
+SELECT MAX(ITEMS),MIN(ITEMS),FLOOR(AVG(ITEMS))
+FROM 
+(SELECT ORDERNUMBER,COUNT(ORDERNUMBER) AS ITEMS
+FROM ORDERDETAILS GROUP BY ORDERNUMBER)AS LINEITEMS;
+
++------------+------------+-------------------+
+| MAX(ITEMS) | MIN(ITEMS) | FLOOR(AVG(ITEMS)) |
++------------+------------+-------------------+
+|         18 |          1 |                 9 |
++------------+------------+-------------------+
+
+	SELECT PRODUCTNAME,BUYPRICE,PRODUCTLINE
+	FROM PRODUCTS P1
+	WHERE BUYPRICE>(
+	SELECT AVG(BUYPRICE) FROM PRODUCTS
+	WHERE PRODUCTLINE=P1.PRODUCTLINE)
+	ORDER BY PRODUCTLINE;
+	+-----------------------------------------+----------+------------------+
+| PRODUCTNAME                             | BUYPRICE | PRODUCTLINE      |
++-----------------------------------------+----------+------------------+
+| 1952 Alpine Renault 1300                |    98.58 | Classic Cars     |
+| 1998 Chrysler Plymouth Prowler          |   101.51 | Classic Cars     |
+| 1992 Ferrari 360 Spider red             |    77.90 | Classic Cars     |
+| 1972 Alfa Romeo GTA                     |    85.68 | Classic Cars     |
+| 1962 LanciaA Delta 16V                  |   103.42 | Classic Cars     |
+| 1968 Ford Mustang                       |    95.34 | Classic Cars     |
+| 2001 Ferrari Enzo                       |    95.59 | Classic Cars     |
+| 1957 Corvette Convertible               |    69.93 | Classic Cars     |
+| 1970 Triumph Spitfire                   |    91.92 | Classic Cars     |
+| 1969 Corvair Monza                      |    89.14 | Classic Cars     |
+| 1968 Dodge Charger                      |    75.16 | Classic Cars     |
+| 1969 Ford Falcon                        |    83.05 | Classic Cars     |
+| 1976 Ford Gran Torino                   |    73.49 | Classic Cars     |
+| 1993 Mazda RX-7                         |    83.51 | Classic Cars     |
+| 1952 Citroen-15CV                       |    72.82 | Classic Cars     |
+| 1965 Aston Martin DB5                   |    65.96 | Classic Cars     |
+| 1956 Porsche 356A Coupe                 |    98.30 | Classic Cars     |
+| 1992 Porsche Cayenne Turbo Silver       |    69.78 | Classic Cars     |
+| 1995 Honda Civic                        |    93.89 | Classic Cars     |
+| 1996 Moto Guzzi 1100i                   |    68.99 | Motorcycles      |
+| 2003 Harley-Davidson Eagle Drag Bike    |    91.02 | Motorcycles      |
+| 2002 Suzuki XREO                        |    66.27 | Motorcycles      |
+| 1997 BMW R 1100 S                       |    60.86 | Motorcycles      |
+| 1997 BMW F650 ST                        |    66.92 | Motorcycles      |
+| 1974 Ducati 350 Mk3 Desmo               |    56.13 | Motorcycles      |
+| 1928 British Royal Navy Airplane        |    66.74 | Planes           |
+| 1980s Black Hawk Helicopter             |    77.27 | Planes           |
+| American Airlines: B767-300             |    51.15 | Planes           |
+| America West Airlines B757-200          |    68.80 | Planes           |
+| ATA: B757-300                           |    59.33 | Planes           |
+| F/A 18 Hornet 1/72                      |    54.40 | Planes           |
+| 1999 Yamaha Speed Boat                  |    51.61 | Ships            |
+| The Queen Mary                          |    53.63 | Ships            |
+| 18th century schooner                   |    82.34 | Ships            |
+| The Titanic                             |    51.09 | Ships            |
+| Collectable Wooden Train                |    67.56 | Trains           |
+| 1962 Volkswagen Microbus                |    61.34 | Trucks and Buses |
+| 1940 Ford Pickup Truck                  |    58.33 | Trucks and Buses |
+| 1964 Mercedes Tour Bus                  |    74.86 | Trucks and Buses |
+| Diamond T620 Semi-Skirted Tanker        |    68.29 | Trucks and Buses |
+| 1940s Ford truck                        |    84.76 | Trucks and Buses |
+| 1958 Setra Bus                          |    77.90 | Trucks and Buses |
+| 1913 Ford Model T Speedster             |    60.78 | Vintage Cars     |
+| 1904 Buick Runabout                     |    52.66 | Vintage Cars     |
+| 1903 Ford Model A                       |    68.30 | Vintage Cars     |
+| 1936 Chrysler Airflow                   |    57.46 | Vintage Cars     |
+| 1928 Mercedes-Benz SSK                  |    72.56 | Vintage Cars     |
+| 1917 Grand Touring Sedan                |    86.70 | Vintage Cars     |
+| 1932 Model A Ford J-Coupe               |    58.48 | Vintage Cars     |
+| 1937 Lincoln Berline                    |    60.62 | Vintage Cars     |
+| 1917 Maxwell Touring Car                |    57.54 | Vintage Cars     |
+| 18th Century Vintage Horse Carriage     |    60.74 | Vintage Cars     |
+| 1941 Chevrolet Special Deluxe Cabriolet |    64.58 | Vintage Cars     |
+| 1912 Ford Model T Delivery Wagon        |    46.91 | Vintage Cars     |
+| 1940 Ford Delivery Sedan                |    48.64 | Vintage Cars     |
++-----------------------------------------+----------+------------------+
+
+
+
+SELECT CUSTOMERNAME,CUSTOMERNUMBER FROM CUSTOMERS
+WHERE EXISTS(
+SELECT ORDERNUMBER,SUM(PRICEEACH*QUANTITYORDERED) TOTAL
+FROM ORDERDETAILS
+INNER JOIN ORDERS USING (ORDERNUMBER)
+WHERE CUSTOMERNUMBER=CUSTOMERS.CUSTOMERNUMBER
+GROUP BY ORDERNUMBER
+HAVING SUM(PRICEEACH*QUANTITYORDERED)>60000);
+
++--------------------------+----------------+
+| CUSTOMERNAME             | CUSTOMERNUMBER |
++--------------------------+----------------+
+| Dragon Souveniers, Ltd.  |            148 |
+| Toms Spezialit├ñten, Ltd |            259 |
+| Vida Sport, Ltd          |            298 |
++--------------------------+----------------+
+
+SELECT CUSTOMERNUMBER,ROUND(SUM(QUANTITYORDERED*PRICEEACH)) SALES,
+(CASE 
+WHEN SUM(QUANTITYORDERED*PRICEEACH)<10000 THEN 'SILVER'
+WHEN SUM(QUANTITYORDERED*PRICEEACH) BETWEEN 10000  AND 100000 THEN 'GOLD'
+WHEN SUM(QUANTITYORDERED*PRICEEACH)>100000 THEN 'PLATINUM'
+END) CUSTOMERGROUP
+FROM
+ORDERDETAILS INNER JOIN ORDERS USING (ORDERNUMBER)
+
+WHERE YEAR(SHIPPEDDATE)=2003
+GROUP BY CUSTOMERNUMBER     LIMIT 20;
++----------------+--------+---------------+
+| CUSTOMERNUMBER | SALES  | CUSTOMERGROUP |
++----------------+--------+---------------+
+|            103 |  14571 | GOLD          |
+|            112 |  32642 | GOLD          |
+|            114 |  53429 | GOLD          |
+|            121 |  51710 | GOLD          |
+|            124 | 167783 | PLATINUM      |
+|            128 |  34651 | GOLD          |
+|            129 |  40462 | GOLD          |
+|            131 |  22293 | GOLD          |
+|            141 | 189840 | PLATINUM      |
+|            144 |   7675 | SILVER        |
+|            145 |  53959 | GOLD          |
+|            146 |  39712 | GOLD          |
+|            148 | 150123 | PLATINUM      |
+|            151 | 117635 | PLATINUM      |
+|            161 |  89419 | GOLD          |
+|            167 |  85024 | GOLD          |
+|            171 |  42784 | GOLD          |
+|            172 |  33383 | GOLD          |
+|            175 |  24879 | GOLD          |
+|            181 |   5495 | SILVER        |
++----------------+--------+---------------+
+
+SELECT CUSTOMERNAME,SALES,CUSTOMERGROUP FROM(
+SELECT CUSTOMERNUMBER,ROUND(SUM(QUANTITYORDERED*PRICEEACH)) SALES,
+(CASE 
+WHEN SUM(QUANTITYORDERED*PRICEEACH)<10000 THEN 'SILVER'
+WHEN SUM(QUANTITYORDERED*PRICEEACH) BETWEEN 10000  AND 100000 THEN 'GOLD'
+WHEN SUM(QUANTITYORDERED*PRICEEACH)>100000 THEN 'PLATINUM'
+END) CUSTOMERGROUP
+FROM
+ORDERDETAILS INNER JOIN ORDERS USING (ORDERNUMBER)
+
+WHERE YEAR(SHIPPEDDATE)=2003
+GROUP BY CUSTOMERNUMBER     LIMIT 20
+INNER JOIN CUSTOMERS USING (CUSTOMERNUMBER));
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+UPDATE QUERY:
+==============================
+update employee 
+set commision_pct=25
+where department_id in(
+                       select department_id from departments where
+					   department_name='it')
+
+
+
+DELETE QUERY:
+===========================
+
+
+delete from tasks 
+where start_date is null
+and due_date is null
+and priority=2
+
+
+delete from tasks
+
+rollback
+
+truncate table tasks;
+
+rollback;(it will not work);bcause truncate is auto-commit
+
+
+STRING FUNCTIONS:
+======================================
+select upper(first_name),lower(first_name) from employee;
++-------------------+-------------------+
+| upper(first_name) | lower(first_name) |
++-------------------+-------------------+
+| STEVEN            | steven            |
+| NEENA             | neena             |
+| LEX               | lex               |
+| ALEXANDER         | alexander         |
+| BRUCE             | bruce             |
+| DAVID             | david             |
+| VALLI             | valli             |
+| DIANA             | diana             |
+| NANCY             | nancy             |
+| DANIEL            | daniel            |
+| JOHN              | john              |
+| ISMAEL            | ismael            |
+| JOSE MANUEL       | jose manuel       |
+| LUIS              | luis              |
+| DEN               | den               |
+| ALEXANDER         | alexander         |
+| SHELLI            | shelli            |
+| SIGAL             | sigal             |
+| GUY               | guy               |
+| KAREN             | karen             |
+| MATTHEW           | matthew           |
+| ADAM              | adam              |
+| PAYAM             | payam             |
+| SHANTA            | shanta            |
+| KEVIN             | kevin             |
+| JULIA             | julia             |
+| IRENE             | irene             |
+| JAMES             | james             |
+| STEVEN            | steven            |
+| LAURA             | laura             |
+| MOZHE             | mozhe             |
++-------------------+-------------------+
+
+
+select replace(job_id,'it_prog','it programmer') from employee;
+
++-------------------------------------------+
+| replace(job_id,'it_prog','it programmer') |
++-------------------------------------------+
+| AD_PRES                                   |
+| AD_VP                                     |
+| AD_VP                                     |
+| IT_PROG                                   |
+| IT_PROG                                   |
+| IT_PROG                                   |
+| IT_PROG                                   |
+| IT_PROG                                   |
+| FI_MGR                                    |
+| FI_ACCOUNT                                |
+| FI_ACCOUNT                                |
+| FI_ACCOUNT                                |
+| FI_ACCOUNT                                |
+| FI_ACCOUNT                                |
+| PU_MAN                                    |
+| PU_CLERK                                  |
+| PU_CLERK                                  |
+| PU_CLERK                                  |
+| PU_CLERK                                  |
+| PU_CLERK                                  |
+| ST_MAN                                    |
+| ST_MAN                                    |
+| ST_MAN                                    |
+| ST_MAN                                    |
+| ST_MAN                                    |
+| ST_CLERK                                  |
+| ST_CLERK                                  |
+| ST_CLERK                                  |
+| ST_CLERK                                  |
+| ST_CLERK                                  |
+| ST_CLERK                                  |
++-------------------------------------------+
+
+select right(job_id,5) from employee;
++-----------------+
+| right(job_id,5) |
++-----------------+
+| _PRES           |
+| AD_VP           |
+| AD_VP           |
+| _PROG           |
+| _PROG           |
+| _PROG           |
+| _PROG           |
+| _PROG           |
+| I_MGR           |
+| COUNT           |
+| COUNT           |
+| COUNT           |
+| COUNT           |
+| COUNT           |
+| U_MAN           |
+| CLERK           |
+| CLERK           |
+| CLERK           |
+| CLERK           |
+| CLERK           |
+| T_MAN           |
+| T_MAN           |
+| T_MAN           |
+| T_MAN           |
+| T_MAN           |
+| CLERK           |
+| CLERK           |
+| CLERK           |
+| CLERK           |
+| CLERK           |
+| CLERK           |
++-----------------+
+
+
+select first_name,length(first_name) from employee;
++-------------+--------------------+
+| first_name  | length(first_name) |
++-------------+--------------------+
+| Steven      |                  6 |
+| Neena       |                  5 |
+| Lex         |                  3 |
+| Alexander   |                  9 |
+| Bruce       |                  5 |
+| David       |                  5 |
+| Valli       |                  5 |
+| Diana       |                  5 |
+| Nancy       |                  5 |
+| Daniel      |                  6 |
+| John        |                  4 |
+| Ismael      |                  6 |
+| Jose Manuel |                 11 |
+| Luis        |                  4 |
+| Den         |                  3 |
+| Alexander   |                  9 |
+| Shelli      |                  6 |
+| Sigal       |                  5 |
+| Guy         |                  3 |
+| Karen       |                  5 |
+| Matthew     |                  7 |
+| Adam        |                  4 |
+| Payam       |                  5 |
+| Shanta      |                  6 |
+| Kevin       |                  5 |
+| Julia       |                  5 |
+| Irene       |                  5 |
+| James       |                  5 |
+| Steven      |                  6 |
+| Laura       |                  5 |
+| Mozhe       |                  5 |
++-------------+--------------------+
+
+select productname,substr(productname,3,4) from products limit 10;
++---------------------------------------+-------------------------+
+| productname                           | substr(productname,3,4) |
++---------------------------------------+-------------------------+
+| 1969 Harley Davidson Ultimate Chopper | 69 H                    |
+| 1952 Alpine Renault 1300              | 52 A                    |
+| 1996 Moto Guzzi 1100i                 | 96 M                    |
+| 2003 Harley-Davidson Eagle Drag Bike  | 03 H                    |
+| 1972 Alfa Romeo GTA                   | 72 A                    |
+| 1962 LanciaA Delta 16V                | 62 L                    |
+| 1968 Ford Mustang                     | 68 F                    |
+| 2001 Ferrari Enzo                     | 01 F                    |
+| 1958 Setra Bus                        | 58 S                    |
+| 2002 Suzuki XREO                      | 02 S                    |
++---------------------------------------+-------------------------+
+
+select productname,substr(productname,-3,2) from products limit 10;
+
++---------------------------------------+--------------------------+
+| productname                           | substr(productname,-3,2) |
++---------------------------------------+--------------------------+
+| 1969 Harley Davidson Ultimate Chopper | pe                       |
+| 1952 Alpine Renault 1300              | 30                       |
+| 1996 Moto Guzzi 1100i                 | 00                       |
+| 2003 Harley-Davidson Eagle Drag Bike  | ik                       |
+| 1972 Alfa Romeo GTA                   | GT                       |
+| 1962 LanciaA Delta 16V                | 16                       |
+| 1968 Ford Mustang                     | an                       |
+| 2001 Ferrari Enzo                     | nz                       |
+| 1958 Setra Bus                        | Bu                       |
+| 2002 Suzuki XREO                      | RE                       |
++---------------------------------------+--------------------------+
+
+
+select format(12500,2);
++-----------------+
+| format(12500,2) |
++-----------------+
+| 12,500.00       |
++-----------------+

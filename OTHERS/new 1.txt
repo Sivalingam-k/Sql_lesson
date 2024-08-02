@@ -1,0 +1,90 @@
+Joins:
+Use Employee and Departments
+1. Write a query to select employees and their corresponding managers and their salaries
+
+SELECT CONCAT(M.FIRST_NAME,"",M.LAST_NAME) AS MANAGER,M.SALARY AS MANAGER_SALARY,
+CONCAT(E.FIRST_NAME,"",E.LAST_NAME)AS EMPLOYEES,
+E.SALARY AS EMPLOYEE_SALARY
+FROM EMPLOYEE M
+INNER JOIN EMPLOYEE E 
+ON M.EMPLOYEE_ID=E.MANAGER_ID;
+
++-----------------+----------------+------------------+-----------------+
+| MANAGER         | MANAGER_SALARY | EMPLOYEES        | EMPLOYEE_SALARY |
++-----------------+----------------+------------------+-----------------+
+| StevenKing      |          24000 | NeenaKochhar     |           17000 |
+| StevenKing      |          24000 | LexDe Haan       |           17000 |
+| LexDe Haan      |          17000 | AlexanderHunold  |            9000 |
+| AlexanderHunold |           9000 | BruceErnst       |            6000 |
+| AlexanderHunold |           9000 | DavidAustin      |            4800 |
+| AlexanderHunold |           9000 | ValliPataballa   |            4800 |
+| AlexanderHunold |           9000 | DianaLorentz     |            4200 |
+| NeenaKochhar    |          17000 | NancyGreenberg   |           12000 |
+| NancyGreenberg  |          12000 | DanielFaviet     |            9000 |
+| NancyGreenberg  |          12000 | JohnChen         |            8200 |
+| NancyGreenberg  |          12000 | IsmaelSciarra    |            7700 |
+| NancyGreenberg  |          12000 | Jose ManuelUrman |            7800 |
+| NancyGreenberg  |          12000 | LuisPopp         |            6900 |
+| StevenKing      |          24000 | DenRaphaely      |           11000 |
+| DenRaphaely     |          11000 | AlexanderKhoo    |            3100 |
+| DenRaphaely     |          11000 | ShelliBaida      |            2900 |
+| DenRaphaely     |          11000 | SigalTobias      |            2800 |
+| DenRaphaely     |          11000 | GuyHimuro        |            2600 |
+| DenRaphaely     |          11000 | KarenColmenares  |            2500 |
+| StevenKing      |          24000 | MatthewWeiss     |            8000 |
+| StevenKing      |          24000 | AdamFripp        |            8200 |
+| StevenKing      |          24000 | PayamKaufling    |            7900 |
+| StevenKing      |          24000 | ShantaVollman    |            6500 |
+| StevenKing      |          24000 | KevinMourgos     |            5800 |
+| MatthewWeiss    |           8000 | JuliaNayer       |            3200 |
+| MatthewWeiss    |           8000 | IreneMikkilineni |            2700 |
+| MatthewWeiss    |           8000 | JamesLandry      |            2400 |
+| MatthewWeiss    |           8000 | StevenMarkle     |            2200 |
+| AdamFripp       |           8200 | LauraBissot      |            3300 |
+| AdamFripp       |           8200 | MozheAtkinson    |            2800 |
++-----------------+----------------+------------------+-----------------+
+
+
+
+2. Write a query to show count of employees under each manager in descending order
+
+
+
+3. Find the count of employees in each department
+
+SELECT DEPARTNAME,EMPLOYEE COUNT
+FROM DEPARTMENTS D
+INNER JOIN EMPLOYEE (EMPLOYEENAME);
+
+4. Write an SQL query to display employees who earn more than the average salary in that company
+
+
+
+5. Find the maximum salary from each department.
+  SELECT DEPARTMENT_ID,MAX(SALARY) 
+  FROM EMPLOYEE
+  INNER JOIN DEPARTMENTS USING (DEPARTMENT_ID)
+  GROUP  BY DEPARTMENT_ID
+  ORDER BY DEPARTMENT_ID;
+
++---------------+-------------+
+| DEPARTMENT_ID | MAX(SALARY) |
++---------------+-------------+
+|            20 |       24000 |
+|            30 |       17000 |
+|            40 |        7900 |
+|            50 |        8200 |
+|            60 |        9000 |
+|            70 |        2900 |
+|            80 |        5800 |
+|            90 |        2400 |
+|           100 |       12000 |
+|           110 |        2800 |
+|           130 |        2500 |
+|           140 |        6900 |
+|           150 |        7800 |
+|           160 |        7700 |
+|           170 |        9000 |
++---------------+-------------+
+
+6. Display the managers and the reporting employees who work in different departments
