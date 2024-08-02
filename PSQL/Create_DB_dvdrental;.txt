@@ -1,0 +1,1343 @@
+Drop database dvdrental;
+
+CLEAR SCREEN:\! CLS
+create database dvdrental;
+
+
+
+//List the databases===> \l
+
+//Enabling postgress
+pg_restore -U postgres -d dvdrental C:\Users\sivalingam.k\Downloads\dvdrental\dvdrental.tar
+Password:
+
+//connecting postgress:
+psql -U postgres
+
+\c dvdrental==>Connect to the database dvdrental
+(You are now connected to database "dvdrental" as user "postgres".)
+
+\dt ==>List down the tables in dvdrental
+   List of relations
+ Schema |     Name      | Type  |  Owner
+--------+---------------+-------+----------
+ public | actor         | table | postgres
+ public | address       | table | postgres
+ public | category      | table | postgres
+ public | city          | table | postgres
+ public | country       | table | postgres
+ public | customer      | table | postgres
+ public | film          | table | postgres
+ public | film_actor    | table | postgres
+ public | film_category | table | postgres
+ public | inventory     | table | postgres
+ public | language      | table | postgres
+ public | payment       | table | postgres
+ public | rental        | table | postgres
+ public | staff         | table | postgres
+ public | store         | table | postgres
+(15 rows)
+
+
+
+
+=======================================================================
+//SELECTING THE TABLE CUSTOMER
+
+SELECT * FROM CUSTOMER;
+
+ customer_id | store_id | first_name  |  last_name   |                  email                   | address_id | activebool | create_date |       last_update       | active
+-------------+----------+-------------+--------------+------------------------------------------+------------+------------+-------------+-------------------------+--------
+         524 |        1 | Jared       | Ely          | jared.ely@sakilacustomer.org             |        530 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           1 |        1 | Mary        | Smith        | mary.smith@sakilacustomer.org            |          5 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           2 |        1 | Patricia    | Johnson      | patricia.johnson@sakilacustomer.org      |          6 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           3 |        1 | Linda       | Williams     | linda.williams@sakilacustomer.org        |          7 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           4 |        2 | Barbara     | Jones        | barbara.jones@sakilacustomer.org         |          8 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           5 |        1 | Elizabeth   | Brown        | elizabeth.brown@sakilacustomer.org       |          9 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           6 |        2 | Jennifer    | Davis        | jennifer.davis@sakilacustomer.org        |         10 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           7 |        1 | Maria       | Miller       | maria.miller@sakilacustomer.org          |         11 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           8 |        2 | Susan       | Wilson       | susan.wilson@sakilacustomer.org          |         12 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+           9 |        2 | Margaret    | Moore        | margaret.moore@sakilacustomer.org        |         13 | t          | 2006-02-14  | 2013-05-26 14:49:45.738 |      1
+
+
+//SELECTING MULTIPLE COLUMNS
+SELECT FIRST_NAME,LAST_NAME,EMAIL FROM CUSTOMER;
+
+ first_name  |  last_name   |                  email
+-------------+--------------+------------------------------------------
+ Jared       | Ely          | jared.ely@sakilacustomer.org
+ Mary        | Smith        | mary.smith@sakilacustomer.org
+ Patricia    | Johnson      | patricia.johnson@sakilacustomer.org
+ Linda       | Williams     | linda.williams@sakilacustomer.org
+ Barbara     | Jones        | barbara.jones@sakilacustomer.org
+ Elizabeth   | Brown        | elizabeth.brown@sakilacustomer.org
+ Jennifer    | Davis        | jennifer.davis@sakilacustomer.org
+ Maria       | Miller       | maria.miller@sakilacustomer.org
+ Susan       | Wilson       | susan.wilson@sakilacustomer.org
+ Margaret    | Moore        | margaret.moore@sakilacustomer.org
+ Dorothy     | Taylor       | dorothy.taylor@sakilacustomer.org
+ Lisa        | Anderson     | lisa.anderson@sakilacustomer.org
+ Nancy       | Thomas       | nancy.thomas@sakilacustomer.org
+ Karen       | Jackson      | karen.jackson@sakilacustomer.org
+ Betty       | White        | betty.white@sakilacustomer.org
+ Helen       | Harris       | helen.harris@sakilacustomer.org
+
+
+//pIPES:
+
+-----------------------------------------------------------------------------------
+SELECT FIRST_NAME ||''|| LAST_NAME AS FULLNAME,EMAIL FROM CUSTOMER;
+
+
+      fullname       |                  email
+----------------------+------------------------------------------
+ JaredEly             | jared.ely@sakilacustomer.org
+ MarySmith            | mary.smith@sakilacustomer.org
+ PatriciaJohnson      | patricia.johnson@sakilacustomer.org
+ LindaWilliams        | linda.williams@sakilacustomer.org
+ BarbaraJones         | barbara.jones@sakilacustomer.org
+ ElizabethBrown       | elizabeth.brown@sakilacustomer.org
+ JenniferDavis        | jennifer.davis@sakilacustomer.org
+ MariaMiller          | maria.miller@sakilacustomer.org
+ SusanWilson          | susan.wilson@sakilacustomer.org
+ MargaretMoore        | margaret.moore@sakilacustomer.org
+ DorothyTaylor        | dorothy.taylor@sakilacustomer.org
+ LisaAnderson         | lisa.anderson@sakilacustomer.org
+ NancyThomas          | nancy.thomas@sakilacustomer.org
+ KarenJackson         | karen.jackson@sakilacustomer.org
+ BettyWhite           | betty.white@sakilacustomer.org
+ HelenHarris          | helen.harris@sakilacustomer.org
+ SandraMartin         | sandra.martin@sakilacustomer.org
+ DonnaThompson        | donna.thompson@sakilacustomer.org
+ CarolGarcia          | carol.garcia@sakilacustomer.org
+ RuthMartinez         | ruth.martinez@sakilacustomer.org
+ SharonRobinson       | sharon.robinson@sakilacustomer.org
+ MichelleClark        | michelle.clark@sakilacustomer.org
+ LauraRodriguez       | laura.rodriguez@sakilacustomer.org
+ SarahLewis           | sarah.lewis@sakilacustomer.org
+ KimberlyLee          | kimberly.lee@sakilacustomer.org
+ DeborahWalker        | deborah.walker@sakilacustomer.org
+ JessicaHall          | jessica.hall@sakilacustomer.org
+ ShirleyAllen         | shirley.allen@sakilacustomer.org
+ CynthiaYoung         | cynthia.young@sakilacustomer.org
+ AngelaHernandez      | angela.hernandez@sakilacustomer.org
+ 
+ --------------------------------------------------------------------------------------------------------
+ 
+ //TO FIND SOMETHING
+ 
+ 
+ SELECT 102*102;
+  ?column?
+----------
+    10404
+(1 row)
+ 
+ 
+ SELECT NOW();==>FINDING CURRENT DATE AND TIME
+
+               now
+----------------------------------
+ 2024-07-16 12:08:56.588503+05:30
+(1 row)
+-------------------------------------------------------------------------------------------------------------
+//COULMN NAME DONT HAVE SPACE; TO SPECIFY SPACE USE ""
+EXAMPLE:
+
+SELECT FIRST_NAME ||''|| LAST_NAME AS "FULLNAME",EMAIL FROM CUSTOMER;
+
+
+-------------------------------------------------------------------------------------------------------------
+//ASCENDING AND DESCENDING:
+
+
+SELECT FIRST_NAME ||''|| LAST_NAME AS "FULLNAME",EMAIL FROM CUSTOMER ORDER BY FIRST_NAME ASC;
+
+ AnnetteOlson         | annette.olson@sakilacustomer.org
+ AnnieRussell         | annie.russell@sakilacustomer.org
+ AnthonySchwab        | anthony.schwab@sakilacustomer.org
+ AntonioMeek          | antonio.meek@sakilacustomer.org
+ AprilBurns           | april.burns@sakilacustomer.org
+ ArleneHarvey         | arlene.harvey@sakilacustomer.org
+ ArmandoGruber        | armando.gruber@sakilacustomer.org
+ ArnoldHavens         | arnold.havens@sakilacustomer.org
+ ArthurSimpkins       | arthur.simpkins@sakilacustomer.org
+ AshleyRichardson     | ashley.richardson@sakilacustomer.org
+ AudreyRay            | audrey.ray@sakilacustomer.org
+ AustinCintron        | austin.cintron@sakilacustomer.org
+ BarbaraJones         | barbara.jones@sakilacustomer.org
+ BarryLovelace        | barry.lovelace@sakilacustomer.org
+ BeatriceArnold       | beatrice.arnold@sakilacustomer.org
+ BeckyMiles           | becky.miles@sakilacustomer.org
+ BenEaster            | ben.easter@sakilacustomer.org
+ BenjaminVarney       | benjamin.varney@sakilacustomer.org
+ BernardColby         | bernard.colby@sakilacustomer.org
+ BerniceWillis        | bernice.willis@sakilacustomer.org
+ BerthaFerguson       | bertha.ferguson@sakilacustomer.org
+ BessieMorrison       | bessie.morrison@sakilacustomer.org
+ BethFranklin         | beth.franklin@sakilacustomer.org
+ BettyWhite           | betty.white@sakilacustomer.org
+ BeverlyBrooks        | beverly.brooks@sakilacustomer.org
+ BillGavin            | bill.gavin@sakilacustomer.org
+ BillieHorton         | billie.horton@sakilacust
+
+SELECT FIRST_NAME ||''|| LAST_NAME AS "FULLNAME",EMAIL FROM CUSTOMER ORDER BY FIRST_NAME ASC , LAST_NAME DESC;
+
+ AnnetteOlson         | annette.olson@sakilacustomer.org
+ AnnieRussell         | annie.russell@sakilacustomer.org
+ AnthonySchwab        | anthony.schwab@sakilacustomer.org
+ AntonioMeek          | antonio.meek@sakilacustomer.org
+ AprilBurns           | april.burns@sakilacustomer.org
+ ArleneHarvey         | arlene.harvey@sakilacustomer.org
+ ArmandoGruber        | armando.gruber@sakilacustomer.org
+ ArnoldHavens         | arnold.havens@sakilacustomer.org
+ ArthurSimpkins       | arthur.simpkins@sakilacustomer.org
+ AshleyRichardson     | ashley.richardson@sakilacustomer.org
+ AudreyRay            | audrey.ray@sakilacustomer.org
+ AustinCintron        | austin.cintron@sakilacustomer.org
+ BarbaraJones         | barbara.jones@sakilacustomer.org
+ BarryLovelace        | barry.lovelace@sakilacustomer.org
+ BeatriceArnold       | beatrice.arnold@sakilacustomer.org
+ BeckyMiles           | becky.miles@sakilacustomer.org
+ BenEaster            | ben.easter@sakilacustomer.org
+------------------------------------------------------------------------------------------------------------------------
+//TO FIND THE LENGTH:
+
+SELECT  EMAIL,LENGTH(EMAIL) AS EMAIL_LENGTH FROM CUSTOMER;
+
+                  email                   | email_length
+------------------------------------------+--------------
+ jared.ely@sakilacustomer.org             |           28
+ mary.smith@sakilacustomer.org            |           29
+ patricia.johnson@sakilacustomer.org      |           35
+ linda.williams@sakilacustomer.org        |           33
+ barbara.jones@sakilacustomer.org         |           32
+ elizabeth.brown@sakilacustomer.org       |           34
+ jennifer.davis@sakilacustomer.org        |           33
+ maria.miller@sakilacustomer.org          |           31
+ susan.wilson@sakilacustomer.org          |           31
+ margaret.moore@sakilacustomer.org        |           33
+ dorothy.taylor@sakilacustomer.org        |           33
+ lisa.anderson@sakilacustomer.org         |           32
+ nancy.thomas@sakilacustomer.org          |           31
+ karen.jackson@sakilacustomer.org         |           32
+ betty.white@sakilacustomer.org           |           30
+ helen.harris@sakilacustomer.org          |           31
+ sandra.martin@sakilacustomer.org         |           32
+ donna.thompson@sakilacustomer.org        |           33
+ carol.garcia@sakilacustomer.org          |           31
+ ruth.martinez@sakilacustomer.org         |           32
+ sharon.robinson@sakilacustomer.org       |           34
+ michelle.clark@sakilacustomer.org        |           33
+ 
+ 
+ 
+ 
+ SELECT  EMAIL,LENGTH(EMAIL) AS EMAIL_LENGTH FROM CUSTOMER ORDER BY EMAIL_LENGTH;
+ 
+         email                   | email_length
+------------------------------------------+--------------
+ jim.rea@sakilacustomer.org               |           26
+ jay.robb@sakilacustomer.org              |           27
+ kim.cruz@sakilacustomer.org              |           27
+ tim.cary@sakilacustomer.org              |           27
+ todd.tan@sakilacustomer.org              |           27
+ mike.way@sakilacustomer.org              |           27
+ max.pitt@sakilacustomer.org              |           27
+ don.bone@sakilacustomer.org              |           27
+ gary.coy@sakilacustomer.org              |           27
+ dan.paine@sakilacustomer.org             |           28
+ ann.evans@sakilacustomer.org             |           28
+ jean.bell@sakilacustomer.org             |           28
+ edna.west@sakilacustomer.org             |           28
+ leo.ebert@sakilacustomer.org             |           28
+ dana.hart@sakilacustomer.org             |           28
+ nina.soto@sakilacustomer.org             |           28
+ eva.ramos@sakilacustomer.org             |           28
+ byron.box@sakilacustomer.org             |           28
+ jared.ely@sakilacustomer.org             |           28
+ karl.seal@sakilacustomer.org             |           28
+ amy.lopez@sakilacustomer.org             |           28
+ anna.hill@sakilacustomer.org             |           28
+ alan.kahn@sakilacustomer.org             |           28
+ ray.houle@sakilacustomer.org             |           28
+ tara.ryan@sakilacustomer.org             |           28
+ toni.holt@sakilacustomer.org             |           28
+ jo.fowler@sakilacustomer.org             |           28
+ jeff.east@sakilacustomer.org             |           28
+ holly.fox@sakilacustomer.org             |           28
+ emma.boyd@sakilacustomer.org             |           28
+ lee.hawks@sakilacustomer.org             |           28
+ 
+ ------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT * FROM CUSTOMER WHERE LAST_UPDATE IS NULL;
+
+ customer_id | store_id | first_name | last_name | email | address_id | activebool | create_date | last_update | active
+-------------+----------+------------+-----------+-------+------------+------------+-------------+-------------+--------
+(0 rows)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+//WANT TO SEND THE NULL AS LAST:
+
+dvdrental=# SELECT * FROM SORT_DEMO ORDER BY NUM DESC ;
+ num
+-----
+                         ==>NULL COMES FIRST
+   3
+   2
+   1
+
+dvdrental=# SELECT * FROM SORT_DEMO ORDER BY NUM DESC NULLS LAST;
+ num
+-----
+   3
+   2
+   1
+                       ==>NULLS GOES LAST
+(4 rows)
+
+======================================================================================================================================
+
+SELECT * FROM ADDRESS;
+
+dvdrental=# SELECT * FROM ADDRESS;
+ address_id |                address                 | address2 |       district       | city_id | postal_code |    phone     |     last_update
+------------+----------------------------------------+----------+----------------------+---------+-------------+--------------+---------------------
+          1 | 47 MySakila Drive                      |          | Alberta              |     300 |             |              | 2006-02-15 09:45:30
+          2 | 28 MySQL Boulevard                     |          | QLD                  |     576 |             |              | 2006-02-15 09:45:30
+          3 | 23 Workhaven Lane                      |          | Alberta              |     300 |             | 14033335568  | 2006-02-15 09:45:30
+          4 | 1411 Lillydale Drive                   |          | QLD                  |     576 |             | 6172235589   | 2006-02-15 09:45:30
+          5 | 1913 Hanoi Way                         |          | Nagasaki             |     463 | 35200       | 28303384290  | 2006-02-15 09:45:30
+          6 | 1121 Loja Avenue                       |          | California           |     449 | 17886       | 838635286649 | 2006-02-15 09:45:30
+          7 | 692 Joliet Street                      |          | Attika               |      38 | 83579       | 448477190408 | 2006-02-15 09:45:30
+          8 | 1566 Inegl Manor                       |          | Mandalay             |     349 | 53561       | 705814003527 | 2006-02-15 09:45:30
+          9 | 53 Idfu Parkway                        |          | Nantou               |     361 | 42399       | 10655648674  | 2006-02-15 09:45:30
+         10 | 1795 Santiago de Compostela Way        |          | Texas                |     295 | 18743       | 860452626434 | 2006-02-15 09:45:30
+         11 | 900 Santiago de Compostela Parkway     |          | Central Serbia       |     280 | 93896       | 716571220373 | 2006-02-15 09:45:30
+         12 | 478 Joliet Way                         |          | Hamilton             |     200 | 77948       | 657282285970 | 2006-02-15 09:45:30
+         13 | 613 Korolev Drive                      |          | Masqat               |     329 | 45844       | 380657522649 | 2006-02-15 09:45:30
+         14 | 1531 Sal Drive                         |          | Esfahan              |     162 | 53628       | 648856936185 | 2006-02-15 09:45:30
+         15 | 1542 Tarlac Parkway                    |          | Kanagawa             |     440 | 1027        | 635297277345 | 2006-02-15 09:45:30
+         16 | 808 Bhopal Manor                       |          | Haryana              |     582 | 10672       | 465887807014 | 2006-02-15 09:45:30
+         17 | 270 Amroha Parkway                     |          | Osmaniye             |     384 | 29610       | 695479687538 | 2006-02-15 09:45:30
+         18 | 770 Bydgoszcz Avenue                   |          | California           |     120 | 16266       | 517338314235 | 2006-02-15 09:45:30
+         19 | 419 Iligan Lane                        |          | Madhya Pradesh       |      76 | 72878       | 990911107354 | 2006-02-15 09:45:30
+         20 | 360 Toulouse Parkway                   |          | England              |     495 | 54308       | 949312333307 | 2006-02-15 09:45:30
+         21 | 270 Toulon Boulevard                   |          | Kalmykia             |     156 | 81766       | 407752414682 | 2006-02-15 09:45:30
+         22 | 320 Brest Avenue                       |          | Kaduna               |     252 | 43331       | 747791594069 | 2006-02-15 09:45:30
+         23 | 1417 Lancaster Avenue                  |          | Northern Cape        |     267 | 72192       | 272572357893 | 2006-02-15 09:45:30
+         24 | 1688 Okara Way                         |          | Nothwest Border Prov |     327 | 21954       | 144453869132 | 2006-02-15 09:45:30
+         25 | 262 A Corua (La Corua) Parkway         |          | Dhaka                |     525 | 34418       | 892775750063 | 2006-02-15 09:45:30
+         26 | 28 Charlotte Amalie Street             |          | Rabat-Sal-Zammour-Z  |     443 | 37551       | 161968374323 | 2006-02-15 09:45:30
+         27 | 1780 Hino Boulevard                    |          | Liepaja              |     303 | 7716        | 902731229323 | 2006-02-15 09:45:30
+         28 | 96 Tafuna Way                          |          | Crdoba               |     128 | 99865       | 934730187245 | 2006-02-15 09:45:30
+         29 | 934 San Felipe de Puerto Plata Street  |          | Sind                 |     472 | 99780       | 196495945706 | 2006-02-15 09:45:30
+         30 | 18 Duisburg Boulevard                  |          |                      |     121 | 58327       | 998009777982 | 2006-02-15 09:45:30
+         31 | 217 Botshabelo Place                   |          | Southern Mindanao    |     138 | 49521       | 665356572025 | 2006-02-15 09:45:30
+         32 | 1425 Shikarpur Manor                   |          | Bihar                |     346 | 65599       | 678220867005 | 2006-02-15 09:45:30
+         33 | 786 Aurora Avenue                      |          | Yamaguchi            |     474 | 65750       | 18461860151  | 2006-02-15 09:45:30
+         34 | 1668 Anpolis Street                    |          | Taipei               |     316 | 50199       | 525255540978 | 2006-02-15 09:45:30
+         35 | 33 Gorontalo Way                       |          | West Bengali         |     257 | 30348       | 745994947458 | 2006-02-15 09:45:30
+         36 | 176 Mandaluyong Place                  |          | Uttar Pradesh        |     239 | 65213       | 627705991774 | 2006-02-15 09:45:30
+         37 | 127 Purnea (Purnia) Manor              |          | Piemonte             |      17 | 79388       | 911872220378 | 2006-02-15 09:45:30
+         38 | 61 Tama Street                         |          | Okayama              |     284 | 94065       | 708403338270 | 2006-02-15 09:45:30
+         39 | 391 Callao Drive                       |          | Midi-Pyrnes          |     544 | 34021       | 440512153169 | 2006-02-15 09:45:30
+         40 | 334 Munger (Monghyr) Lane              |          | Markazi              |      31 | 38145       | 481183273622 | 2006-02-15 09:45:30
+         41 | 1440 Fukuyama Loop                     |          | Henan                |     362 | 47929       | 912257250465 | 2006-02-15 09:45:30
+^CCancel request sent
+
+ SELECT DISTINCT(DISTRICT) FROM ADDRESS;
+       district
+----------------------
+ Aden
+ Eastern Visayas
+ Vaduz
+ Tokat
+ Anzotegui
+ Saint-Denis
+ Chollanam
+ Chihuahua
+ Nyanza
+ Changhwa
+ Tokyo-to
+ Santa F
+ Denizli
+ Noord-Brabant
+ Hubei
+ Zulia
+ Paran
+ Mwanza
+ Nova Scotia
+ Caraga
+ Batman
+ Assam
+ Hanoi
+ Andhra Pradesh
+
+---------------------------------------
+
+//SELECTING DISTINCT DISTRICT AND CITY ID(MULLTIPLE CPOLUMN) ==> GIVES COMBINATION
+ SELECT DISTINCT(DISTRICT),(CITY_ID) FROM ADDRESS;
+       district       | city_id
+----------------------+---------
+ Michoacn de Ocampo   |     202
+ Mazowieckie          |     409
+ Haiphong             |     194
+ Sisilia              |     511
+ Moskova              |     466
+ Shandong             |     432
+ Batman               |      58
+ Taipei               |     116
+ Gois                 |      26
+ Sind                 |     472
+ Bern                 |      72
+ Krasnojarsk          |      39
+ Hubei                |     594
+ Moskova              |     310
+ Tamil Nadu           |     522
+ Namibe               |     360
+ Lima                 |     305
+ Ningxia              |     587
+ Puerto Plata         |     450
+ Nantou               |     361
+ England              |     494
+ Minas Gerais         |     413
+ Huanuco              |     214
+ Bukarest             |      95
+------------------------------------------------------------------------------------------------------------------------------
+
+\D ADDRESS==> IT WILL GIVES THE DETAILS ABOUT THE TABLE
+
+
+------------------------------------------------------------------------------------------------------------------------------
+SELECT * FROM ADDRESS WHERE DISTRICT='Lima';
+
+
+ address_id |     address      | address2 | district | city_id | postal_code |    phone     |     last_update
+------------+------------------+----------+----------+---------+-------------+--------------+---------------------
+        126 | 1175 Tanauan Way |          | Lima     |     305 | 64615       | 937222955822 | 2006-02-15 09:45:30
+(1 row)
+
+
+===============================================================================================================================================
+
+//OPERATORS USED WITH WHERE CLAUSE:
+
+   =  -> EQUAL
+   >  -> GREATER THAN
+   <  ->LESSER THAN
+   >= ->GREATER THAN OR EQUAL TO
+   <= ->LESS THAN OR EQUAL TO
+   <> OR != ->NOT EQUAL
+   
+   
+   
+   
+   
+   
+   
+   =================================================================================================================================================
+   
+   
+   SELECT LAST_NAME,FIRST_NAME FROM CUSTOMER WHERE FIRST_NAME='Jamie';
+   
+   
+    last_name | first_name
+-----------+------------
+ Rice      | Jamie
+ Waugh     | Jamie
+(2 rows)
+---------------------------------------------------------------------------------------------------------------------
+//LOGICAL AND OPERATOR
+-------------------------------
+ SELECT LAST_NAME,FIRST_NAME FROM CUSTOMER WHERE FIRST_NAME='Jamie' AND LAST_NAME='Rice';
+   
+    last_name | first_name
+-----------+------------
+ Rice      | Jamie
+ --------------------------------------------------------------------------------------------------------------------
+   //LOGICAL OR OPERATOR
+   -------------------------------------
+   SELECT LAST_NAME,FIRST_NAME FROM CUSTOMER WHERE FIRST_NAME='Adam' OR LAST_NAME='Rodriguez';
+   
+    last_name | first_name
+-----------+------------
+ Rodriguez | Laura
+ Gooch     | Adam
+ ---------------------------------------------------------------------------------------------------------------------  
+   //LOGICAL IN OPERATOR
+   -------------------------------------
+   SELECT LAST_NAME,FIRST_NAME FROM CUSTOMER WHERE FIRST_NAME IN ('Ann','Anne','Annie'); 
+   
+    last_name | first_name
+-----------+------------
+ Evans     | Ann
+ Powell    | Anne
+ Russell   | Annie
+(3 rows)
+--------------------------------------------------------------------------------------------------------------------------
+//LIKE OPERATOR
+-------------------------------
+ SELECT LAST_NAME,FIRST_NAME FROM CUSTOMER WHERE FIRST_NAME LIKE 'Ann%';  
+ 
+  last_name | first_name
+-----------+------------
+ Hill      | Anna
+ Evans     | Ann
+ Powell    | Anne
+ Russell   | Annie
+ Olson     | Annette
+ 
+ //WITH LENGTH:
+ -----------------------
+ SELECT LAST_NAME,FIRST_NAME ,LENGTH(FIRST_NAME) FROM CUSTOMER WHERE FIRST_NAME LIKE 'Ann%' AND LENGTH(FIRST_NAME) BETWEEN 3 AND 5;  
+ 
+ 
+  last_name | first_name | length
+-----------+------------+--------
+ Hill      | Anna       |      4
+ Evans     | Ann        |      3
+ Powell    | Anne       |      4
+ Russell   | Annie      |      5
+(4 rows)
+ 
+ 
+ 
+  SELECT LAST_NAME,FIRST_NAME FROM CUSTOMER WHERE FIRST_NAME LIKE 'Bra%' AND LAST_NAME <> 'Motley';
+   last_name | first_name
+-----------+------------
+ Graves    | Brandy
+ Huey      | Brandon
+ Mccurdy   | Brad
+ ---------------------------------------------------------------------------------------------------------------------------------
+ ===========================================================================================================================================
+ 
+ SAME WITH DIFFERENT TABLE;"TASK"
+ 
+ 
+  SELECT * FROM ADDRESS LIMIT 15;
+ address_id |              address               | address2 |    district    | city_id | postal_code |    phone     |     last_update
+------------+------------------------------------+----------+----------------+---------+-------------+--------------+---------------------
+          1 | 47 MySakila Drive                  |          | Alberta        |     300 |             |              | 2006-02-15 09:45:30
+          2 | 28 MySQL Boulevard                 |          | QLD            |     576 |             |              | 2006-02-15 09:45:30
+          3 | 23 Workhaven Lane                  |          | Alberta        |     300 |             | 14033335568  | 2006-02-15 09:45:30
+          4 | 1411 Lillydale Drive               |          | QLD            |     576 |             | 6172235589   | 2006-02-15 09:45:30
+          5 | 1913 Hanoi Way                     |          | Nagasaki       |     463 | 35200       | 28303384290  | 2006-02-15 09:45:30
+          6 | 1121 Loja Avenue                   |          | California     |     449 | 17886       | 838635286649 | 2006-02-15 09:45:30
+          7 | 692 Joliet Street                  |          | Attika         |      38 | 83579       | 448477190408 | 2006-02-15 09:45:30
+          8 | 1566 Inegl Manor                   |          | Mandalay       |     349 | 53561       | 705814003527 | 2006-02-15 09:45:30
+          9 | 53 Idfu Parkway                    |          | Nantou         |     361 | 42399       | 10655648674  | 2006-02-15 09:45:30
+         10 | 1795 Santiago de Compostela Way    |          | Texas          |     295 | 18743       | 860452626434 | 2006-02-15 09:45:30
+         11 | 900 Santiago de Compostela Parkway |          | Central Serbia |     280 | 93896       | 716571220373 | 2006-02-15 09:45:30
+         12 | 478 Joliet Way                     |          | Hamilton       |     200 | 77948       | 657282285970 | 2006-02-15 09:45:30
+         13 | 613 Korolev Drive                  |          | Masqat         |     329 | 45844       | 380657522649 | 2006-02-15 09:45:30
+         14 | 1531 Sal Drive                     |          | Esfahan        |     162 | 53628       | 648856936185 | 2006-02-15 09:45:30
+         15 | 1542 Tarlac Parkway                |          | Kanagawa       |     440 | 1027        | 635297277345 | 2006-02-15 09:45:30
+(15 rows)
+ 
+ 1. SELECT DISTRICT,CITY_ID FROM ADDRESS WHERE DISTRICT='QLD';
+  district | city_id
+----------+---------
+ QLD      |     576
+ QLD      |     576
+ 
+ 2.SELECT * FROM ADDRESS WHERE DISTRICT='QLD' AND ADDRESS='28 MySQL Boulevard ';
+ 
+ 
+ 3. SELECT * FROM ADDRESS WHERE DISTRICT='QLD' OR ADDRESS=' 1411 Lillydale Drive ';
+ address_id |       address        | address2 | district | city_id | postal_code |   phone    |     last_update
+------------+----------------------+----------+----------+---------+-------------+------------+---------------------
+          2 | 28 MySQL Boulevard   |          | QLD      |     576 |             |            | 2006-02-15 09:45:30
+          4 | 1411 Lillydale Drive |          | QLD      |     576 |             | 6172235589 | 2006-02-15 09:45:30
+(2 rows)
+ 
+ ========================================================================================================================
+ 
+SELECT TITLE,LENGTH,RENTAL_RATE FROM FILM;
+ 
+        title            | length | rental_rate
+-----------------------------+--------+-------------
+ Chamber Italian             |    117 |        4.99
+ Grosse Wonderful            |     49 |        4.99
+ Airport Pollock             |     54 |        4.99
+ Bright Encounters           |     73 |        4.99
+ Academy Dinosaur            |     86 |        0.99
+ Ace Goldfinger              |     48 |        4.99
+ Adaptation Holes            |     50 |        2.99
+ Affair Prejudice            |    117 |        2.99
+ African Egg                 |    130 |        2.99
+ Agent Truman                |    169 |        2.99
+ Airplane Sierra             |     62 |        4.99
+ Alabama Devil               |    114 |        2.99
+ Aladdin Calendar            |     63 |        4.99
+ Alamo Videotape             |    126 |        0.99
+ Alaska Phantom              |    136 |        0.99
+ Date Speed                  |    104 |        0.99
+ Ali Forever                 |    150 |        4.99
+ Alice Fantasia              |     94 |        0.99
+ Alien Center                |     46 |        2.99
+ Alley Evolution             |    180 |        2.99
+ Alone Trip                  |     82 |        0.99
+ 
+ 
+ 
+SELECT TITLE,LENGTH,RENTAL_RATE FROM FILM
+WHERE RENTAL_RATE > 3 OR RENTAL_RATE =0.99; 
+
+           title           | length | rental_rate
+---------------------------+--------+-------------
+ Chamber Italian           |    117 |        4.99
+ Grosse Wonderful          |     49 |        4.99
+ Airport Pollock           |     54 |        4.99
+ Bright Encounters         |     73 |        4.99
+ Academy Dinosaur          |     86 |        0.99
+ Ace Goldfinger            |     48 |        4.99
+ Airplane Sierra           |     62 |        4.99
+ Aladdin Calendar          |     63 |        4.99
+ Alamo Videotape           |    126 |        0.99
+ Alaska Phantom            |    136 |        0.99
+ Date Speed                |    104 |        0.99
+ Ali Forever               |    150 |        4.99
+ Alice Fantasia            |     94 |        0.99
+ Alone Trip                |     82 |        0.99
+ Alter Victory             |     57 |        0.99
+ Amadeus Holy              |    113 |        0.99
+ Amelie Hellfighters       |     79 |        4.99
+ American Circus           |    129 |        4.99
+ Anaconda Confessions      |     92 |        0.99
+ Annie Identity            |     86 |        0.99
+ Anonymous Human           |    179 |        0.99
+ Anthem Luke               |     91 |        4.99
+ Apache Divine             |     92 |        4.99
+ Apocalypse Flamingos      |    119 |        4.99
+ Arabia Dogma              |     62 |        0.99
+ Argonauts Town            |    127 |        0.99
+ Ark Ridgemont             |     68 |        0.99
+ Armageddon Lost           |     99 |        0.99
+ Army Flintstones          |    148 |        0.99
+ Arsenic Independence      |    137 |        0.99
+ Dying Maker               |    168 |        4.99
+ Attacks Hate              |    113 |        4.99
+ Attraction Newton         |     83 |        4.99
+ Autumn Crow               |    108 |        4.99
+ Baby Hall                 |    153 |        4.99
+ Backlash Undefeated       |    118 |        4.99
+ Casualties Encino         |    179 |        4.99
+ Ballroom Mockingbird      |    173 |        0.99
+ Banger Pinocchio          |    113 |        0.99
+ Beast Hunchback           |     89 |        4.99
+ Beauty Grease             |    175 |        4.99
+^CCancel request sent
+ 
+ SELECT TITLE,LENGTH,RENTAL_RATE FROM FILM
+WHERE RENTAL_RATE IN (3,0.99); 
+          title          | length | rental_rate
+-------------------------+--------+-------------
+ Academy Dinosaur        |     86 |        0.99
+ Alamo Videotape         |    126 |        0.99
+ Alaska Phantom          |    136 |        0.99
+ Date Speed              |    104 |        0.99
+ Alice Fantasia          |     94 |        0.99
+ Alone Trip              |     82 |        0.99
+ Alter Victory           |     57 |        0.99
+ Amadeus Holy            |    113 |        0.99
+ Anaconda Confessions    |     92 |        0.99
+ Annie Identity          |     86 |        0.99
+ Anonymous Human         |    179 |        0.99
+ Arabia Dogma            |     62 |        0.99
+ Argonauts Town          |    127 |        0.99
+ Ark Ridgemont           |     68 |        0.99
+ Armageddon Lost         |     99 |        0.99
+ Army Flintstones        |    148 |        0.99
+ Arsenic Independence    |    137 |        0.99
+ Ballroom Mockingbird    |    173 |        0.99
+ Banger Pinocchio        |    113 |        0.99
+ Bedazzled Married       |     73 |        0.99
+ Beethoven Exorcist      |    151 |        0.99
+ Beneath Rush            |     53 |        0.99
+ Birdcage Casper         |    103 |        0.99
+ Blade Polish            |    114 |        0.99
+ Blood Argonauts         |     71 |        0.99
+ Bonnie Holocaust        |     63 |        0.99
+ Boondock Ballroom       |     76 |        0.99
+ Borrowers Bedazzled     |     63 |        0.99
+ Boulevard Mob           |     63 |        0.99
+ Bound Cheaper           |     98 |        0.99
+ Bride Intrigue          |     56 |        0.99
+ Brotherhood Blanket     |     73 |        0.99
+ Bull Shawshank          |    125 |        0.99
+ Butch Panther           |     67 |        0.99
+ Butterfly Chocolat      |     89 |        0.99
+ Cabin Flash             |     53 |        0.99
+ Caddyshack Jedi         |     52 |        0.99
+ Camelot Vacation        |     61 |        0.99
+ Canyon Stock            |     85 |        0.99
+ Caper Motions           |    176 |        0.99
+ Carrie Bunch            |    114 |        0.99
+-- More  --
+
+
+SELECT FILM_ID,TITLE,RELEASE_YEAR FROM FILM
+ORDER BY FILM_ID LIMIT 5;
+
+
+ film_id |      title       | release_year
+---------+------------------+--------------
+       1 | Academy Dinosaur |         2006
+       2 | Ace Goldfinger   |         2006
+       3 | Adaptation Holes |         2006
+       4 | Affair Prejudice |         2006
+       5 | African Egg      |         2006
+(5 rows)
+
+SELECT FILM_ID,TITLE,RELEASE_YEAR FROM FILM
+ORDER BY FILM_ID LIMIT 5 OFFSET 3;              //SKIPPING FIRST 3 RECORDS AND SHOWING AFTER 5 RECORDS
+
+
+ film_id |      title       | release_year
+---------+------------------+--------------
+       4 | Affair Prejudice |         2006
+       5 | African Egg      |         2006
+       6 | Agent Truman     |         2006
+       7 | Airplane Sierra  |         2006
+       8 | Airport Pollock  |         2006
+(5 rows)
+
+// FINDING LAST  5 MOVIES:
+===================================
+SELECT FILM_ID,TITLE,RELEASE_YEAR FROM FILM
+ORDER BY FILM_ID DESC LIMIT 5;
+
+ film_id |       title       | release_year
+---------+-------------------+--------------
+    1000 | Zorro Ark         |         2006
+     999 | Zoolander Fiction |         2006
+     998 | Zhivago Core      |         2006
+     997 | Youth Kick        |         2006
+     996 | Young Language    |         2006
+(5 rows)
+
+===========================================================================================
+
+TASK:
+================================================================================================
+
+SELECT FILM_ID,TITLE,RELEASE_YEAR FROM FILM
+ORDER BY RATING LIMIT 5;
+
+ film_id |       title       | release_year
+---------+-------------------+--------------
+      11 | Alamo Videotape   |         2006
+       4 | Affair Prejudice  |         2006
+       2 | Ace Goldfinger    |         2006
+       5 | African Egg       |         2006
+      22 | Amistad Midsummer |         2006
+
+SELECT FILM_ID,TITLE,RELEASE_YEAR ,RATING FROM FILM
+ORDER BY RATING LIMIT 5 OFFSET 3;   
+
+ film_id |       title       | release_year | rating
+---------+-------------------+--------------+--------
+      22 | Amistad Midsummer |         2006 | G
+       2 | Ace Goldfinger    |         2006 | G
+       5 | African Egg       |         2006 | G
+       4 | Affair Prejudice  |         2006 | G
+      39 | Armageddon Lost   |         2006 | G
+(5 rows)
+
+SELECT FILM_ID,TITLE,RELEASE_YEAR ,RATING FROM FILM
+ORDER BY RATING DESC LIMIT 5 OFFSET 3;   
+
+ film_id |       title        | release_year | rating
+---------+--------------------+--------------+--------
+      15 | Alien Center       |         2006 | NC-17
+      14 | Alice Fantasia     |         2006 | NC-17
+       3 | Adaptation Holes   |         2006 | NC-17
+     133 | Chamber Italian    |         2006 | NC-17
+      29 | Antitrust Tomatoes |         2006 | NC-17
+(5 rows)
+
+
+SELECT FILM_ID,TITLE,RELEASE_YEAR,RATING FROM FILM
+ORDER BY RATING DESC LIMIT 5;
+
+ film_id |      title       | release_year | rating
+---------+------------------+--------------+--------
+      10 | Aladdin Calendar |         2006 | NC-17
+      14 | Alice Fantasia   |         2006 | NC-17
+     133 | Chamber Italian  |         2006 | NC-17
+       3 | Adaptation Holes |         2006 | NC-17
+      15 | Alien Center     |         2006 | NC-17
+(5 rows)
+
+ ===================================================================================================================================
+ SELECT FILM_ID,TITLE,RELEASE_YEAR FROM FILM
+ORDER BY FILM_ID FETCH FIRST ROW ONLY;;
+
+ film_id |      title       | release_year
+---------+------------------+--------------
+       1 | Academy Dinosaur |         2006
+(1 row)
+
+SELECT FILM_ID,TITLE,RELEASE_YEAR FROM FILM
+ORDER BY FILM_ID FETCH FIRST 5 ROW ONLY;
+
+ film_id |      title       | release_year
+---------+------------------+--------------
+       1 | Academy Dinosaur |         2006
+       2 | Ace Goldfinger   |         2006
+       3 | Adaptation Holes |         2006
+       4 | Affair Prejudice |         2006
+       5 | African Egg      |         2006
+(5 rows)
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT PAYMENT_ID,AMOUNT,PAYMENT_DATE
+FROM PAYMENT
+WHERE PAYMENT_DATE :: DATE IN ('2007-02-15','2007-02-16');
+ 
+  payment_id | amount |        payment_date
+------------+--------+----------------------------
+      17503 |   7.99 | 2007-02-15 22:25:46.996577
+      17504 |   1.99 | 2007-02-16 17:23:14.996577
+      17505 |   7.99 | 2007-02-16 22:41:45.996577
+      17512 |   4.99 | 2007-02-16 00:10:50.996577
+      17513 |   6.99 | 2007-02-16 01:15:33.996577
+      17519 |   3.99 | 2007-02-15 10:54:44.996577
+      17520 |   4.99 | 2007-02-15 19:36:27.996577
+      17521 |   0.99 | 2007-02-16 14:00:38.996577
+      17522 |   0.99 | 2007-02-15 01:26:17.996577
+      17523 |   4.99 | 2007-02-15 18:34:15.996577
+      17524 |   0.99 | 2007-02-16 00:27:01.996577
+      17529 |   8.99 | 2007-02-16 12:40:18.996577
+      17534 |   2.99 | 2007-02-16 08:11:14.996577
+      17537 |   2.99 | 2007-02-15 00:11:12.996577
+      17538 |   0.99 | 2007-02-15 22:47:06.996577
+      17545 |   5.99 | 2007-02-16 18:33:16.996577
+      17548 |   0.99 | 2007-02-15 20:26:26.996577
+      17549 |   4.99 | 2007-02-16 07:48:59.996577
+      17550 |   4.99 | 2007-02-16 09:36:54.996577
+      17551 |   4.99 | 2007-02-16 17:40:11.996577
+      17553 |   2.99 | 2007-02-15 11:58:56.996577
+      17556 |   0.99 | 2007-02-15 20:16:44.996577
+      17560 |   0.99 | 2007-02-15 20:08:20.996577
+      17561 |   2.99 | 2007-02-16 05:20:31.996577
+      17562 |   0.99 | 2007-02-15 15:28:12.996577
+      17565 |   5.99 | 2007-02-15 03:39:45.996577
+      17566 |   1.99 | 2007-02-16 18:15:44.996577
+      17569 |   2.99 | 2007-02-15 18:19:32.996577
+      17575 |   4.99 | 2007-02-15 09:53:32.996577
+      17576 |   1.99 | 2007-02-16 16:36:21.996577
+      17579 |   0.99 | 2007-02-15 20:17:01.996577
+      17587 |   2.99 | 2007-02-15 16:52:36.996577
+      17588 |   2.99 | 2007-02-15 23:06:01.996577
+      17589 |   2.99 | 2007-02-16 05:28:54.996577
+      17592 |   4.99 | 2007-02-15 16:44:50.996577
+      17593 |   4.99 | 2007-02-16 01:47:35.996577
+      17594 |   4.99 | 2007-02-16 22:33:48.996577
+      17597 |   2.99 | 2007-02-16 13:41:18.996577
+      17602 |   1.99 | 2007-02-15 08:24:23.996577
+      17603 |   6.99 | 2007-02-16 02:36:42.996577
+      17607 |   1.99 | 2007-02-15 14:58:48.996577
+      17611 |   9.99 | 2007-02-15 21:21:56.996577
+      17616 |   0.99 | 2007-02-15 02:12:51.996577
+      17618 |   2.99 | 2007-02-15 01:31:59.996577
+      17619 |   1.99 | 2007-02-15 01:53:10.996577
+      17620 |   6.99 | 2007-02-16 02:00:05.996577
+	  
+	  ---------------------------------------------
+	  
+	  SELECT PAYMENT_ID,AMOUNT,PAYMENT_DATE
+FROM PAYMENT
+WHERE PAYMENT_DATE :: DATE NOT IN ('2007-02-15','2007-02-16');
+   
+    payment_id | amount |        payment_date
+------------+--------+----------------------------
+      17506 |   2.99 | 2007-02-19 19:39:56.996577
+      17507 |   7.99 | 2007-02-20 17:31:48.996577
+      17508 |   5.99 | 2007-02-21 12:33:49.996577
+      17509 |   5.99 | 2007-02-17 23:58:17.996577
+      17510 |   5.99 | 2007-02-20 02:11:44.996577
+      17511 |   2.99 | 2007-02-20 13:57:39.996577
+      17514 |   0.99 | 2007-02-17 01:26:00.996577
+      17515 |   0.99 | 2007-02-17 04:32:51.996577
+      17516 |   6.99 | 2007-02-18 18:26:38.996577
+      17517 |   8.99 | 2007-02-20 07:03:29.996577
+      17518 |   0.99 | 2007-02-21 14:42:28.996577
+      17525 |   4.99 | 2007-02-19 16:13:41.996577
+      17526 |   5.99 | 2007-02-17 09:35:32.996577
+   -------------------------------------------------------------------
+   
+	  SELECT PAYMENT_ID,AMOUNT,PAYMENT_DATE
+FROM PAYMENT
+WHERE PAYMENT_DATE BETWEEN '2007-02-15' AND'2007-02-16';
+
+
+ payment_id | amount |        payment_date
+------------+--------+----------------------------
+      17503 |   7.99 | 2007-02-15 22:25:46.996577
+      17519 |   3.99 | 2007-02-15 10:54:44.996577
+      17520 |   4.99 | 2007-02-15 19:36:27.996577
+      17522 |   0.99 | 2007-02-15 01:26:17.996577
+      17523 |   4.99 | 2007-02-15 18:34:15.996577
+      17537 |   2.99 | 2007-02-15 00:11:12.996577
+      17538 |   0.99 | 2007-02-15 22:47:06.996577
+      17548 |   0.99 | 2007-02-15 20:26:26.996577
+      17553 |   2.99 | 2007-02-15 11:58:56.996577
+      17556 |   0.99 | 2007-02-15 20:16:44.996577
+      17560 |   0.99 | 2007-02-15 20:08:20.996577
+      17562 |   0.99 | 2007-02-15 15:28:12.996577
+      17565 |   5.99 | 2007-02-15 03:39:45.996577
+      17569 |   2.99 | 2007-02-15 18:19:32.996577
+      17575 |   4.99 | 2007-02-15 09:53:32.996577
+      17579 |   0.99 | 2007-02-15 20:17:01.996577
+      17587 |   2.99 | 2007-02-15 16:52:36.996577
+      17588 |   2.99 | 2007-02-15 23:06:01.996577
+      17592 |   4.99 | 2007-02-15 16:44:50.996577
+      17602 |   1.99 | 2007-02-15 08:24:23.996577
+      17607 |   1.99 | 2007-02-15 14:58:48.996577
+      17611 |   9.99 | 2007-02-15 21:21:56.996577
+      17616 |   0.99 | 2007-02-15 02:12:51.996577
+      17618 |   2.99 | 2007-02-15 01:31:59.996577
+      17619 |   1.99 | 2007-02-15 01:53:10.996577
+      17628 |   6.99 | 2007-02-15 19:23:21.996577
+      17634 |   2.99 | 2007-02-15 15:07:19.996577
+      17635 |   5.99 | 2007-02-15 20:26:33.996577
+	  -----------------------------------------------------------
+	    SELECT PAYMENT_ID,AMOUNT,PAYMENT_DATE
+FROM PAYMENT
+WHERE PAYMENT_DATE NOT BETWEEN '2007-02-15' AND'2007-02-16';
+
+	   payment_id | amount |        payment_date
+------------+--------+----------------------------
+      17504 |   1.99 | 2007-02-16 17:23:14.996577
+      17505 |   7.99 | 2007-02-16 22:41:45.996577
+      17506 |   2.99 | 2007-02-19 19:39:56.996577
+      17507 |   7.99 | 2007-02-20 17:31:48.996577
+      17508 |   5.99 | 2007-02-21 12:33:49.996577
+      17509 |   5.99 | 2007-02-17 23:58:17.996577
+      17510 |   5.99 | 2007-02-20 02:11:44.996577
+      17511 |   2.99 | 2007-02-20 13:57:39.996577
+      17512 |   4.99 | 2007-02-16 00:10:50.996577
+      17513 |   6.99 | 2007-02-16 01:15:33.996577
+      17514 |   0.99 | 2007-02-17 01:26:00.996577
+      17515 |   0.99 | 2007-02-17 04:32:51.996577
+      17516 |   6.99 | 2007-02-18 18:26:38.996577
+      17517 |   8.99 | 2007-02-20 07:03:29.996577
+      17518 |   0.99 | 2007-02-21 14:42:28.996577
+      17521 |   0.99 | 2007-02-16 14:00:38.996577
+      17524 |   0.99 | 2007-02-16 00:27:01.996577
+      17525 |   4.99 | 2007-02-19 16:13:41.996577
+      17526 |   5.99 | 2007-02-17 09:35:32.996577
+      17527 |   2.99 | 2007-02-21 12:02:45.996577
+      17528 |   2.99 | 2007-02-21 15:51:24.996577
+      17529 |   8.99 | 2007-02-16 12:40:18.996577
+      17530 |   0.99 | 2007-02-18 04:59:41.996577
+      17531 |   4.99 | 2007-02-20 10:16:26.996577
+      17532 |   8.99 | 2007-02-20 14:33:08.996577
+      17533 |   7.99 | 2007-02-21 07:33:16.996577
+      17534 |   2.99 | 2007-02-16 08:11:14.996577
+      17535 |   8.99 | 2007-02-17 12:47:26.996577
+      17536 |   0.99 | 2007-02-18 21:30:02.996577
+      17539 |   6.99 | 2007-02-20 07:24:16.996577
+	  -----------------------------------------------------
+	  
+	  
+	  
+	  SELECT FIRST_NAME,LAST_NAME FROM CUSTOMER 
+	  WHERE FIRST_NAME LIKE 'Dar%';
+	   first_name | last_name
+------------+-----------
+ Darlene    | Rose
+ Darrell    | Power
+ Darryl     | Ashcraft
+ Darren     | Windham
+ Daryl      | Larue
+(5 rows)
+
+
+========================>>>>>>>>>>>>>>>>>>>INSTEAD OF LIKE USE ~~<<<<<<<<<<<<<<<<<<<=============================
+
+	  SELECT FIRST_NAME,LAST_NAME FROM CUSTOMER 
+	  WHERE FIRST_NAME ~~ 'Dar%';
+	  
+	   first_name | last_name
+------------+-----------
+ Darlene    | Rose
+ Darrell    | Power
+ Darryl     | Ashcraft
+ Darren     | Windham
+ Daryl      | Larue
+(5 rows)
+
+
+========================>>>>>>>>>>>>>>>>>>>FOR NOT LIKE USE !~~<<<<<<<<<<<<<<<<<<<=============================
+ SELECT FIRST_NAME,LAST_NAME FROM CUSTOMER 
+	  WHERE FIRST_NAME !~~ 'Dar%';
+	  
+	   first_name  |  last_name
+-------------+--------------
+ Jared       | Ely
+ Mary        | Smith
+ Patricia    | Johnson
+ Linda       | Williams
+ Barbara     | Jones
+ Elizabeth   | Brown
+ Jennifer    | Davis
+ Maria       | Miller
+ Susan       | Wilson
+ Margaret    | Moore
+ Dorothy     | Taylor
+ Lisa        | Anderson
+ Nancy       | Thomas
+ Karen       | Jackson
+ Betty       | White
+ Helen       | Harris
+ Sandra      | Martin
+ Donna       | Thompson
+ Carol       | Garcia
+ Ruth        | Martinez
+ Sharon      | Robinson
+ Michelle    | Clark
+ Laura       | Rodriguez
+ Sarah       | Lewis
+ Kimberly    | Lee
+ Deborah     | Walker
+	  
+	  
+------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+
+CREATE TABLE T(MESSAGE TEXT);
+
+INSERT INTO T(MESSAGE) VALUES ('THE RENTS ARE NOW 10% HIGHER THAN LAST MONTH');
+	  INSERT INTO T(MESSAGE) VALUES ('THE NEW FILMS ');
+	  
+	  
+	  SELECT * FROM T WHERE MESSAGE LIKE '%10$%%' ESCAPE '$';
+	  
+	  
+===================================================================================================
+SELECT ADDRESS,ADDRESS2 FROM ADDRESS WHERE ADDRESS2 IS NOT NULL;	  
+	  
+	  
+	           address                 | address2
+----------------------------------------+----------
+ 1913 Hanoi Way                         |
+ 1121 Loja Avenue                       |
+ 692 Joliet Street                      |
+ 1566 Inegl Manor                       |
+ 53 Idfu Parkway                        |
+ 1795 Santiago de Compostela Way        |
+ 900 Santiago de Compostela Parkway     |
+ 478 Joliet Way                         |
+ 613 Korolev Drive                      |
+ 1531 Sal Drive                         |
+ 1542 Tarlac Parkway                    |
+ 808 Bhopal Manor                       |
+ 270 Amroha Parkway                     |
+ 770 Bydgoszcz Avenue                   |
+ 419 Iligan Lane                        |
+ 360 Toulouse Parkway                   |
+ 270 Toulon Boulevard                   |
+ 320 Brest Avenue                       |
+ 1417 Lancaster Avenue                  |
+ 1688 Okara Way                         |
+ 262 A Corua (La Corua) Parkway         |
+ 28 Charlotte Amalie Street             |
+ 1780 Hino Boulevard                    |
+ 96 Tafuna Way                          |
+ 934 San Felipe de Puerto Plata Street  |
+ 18 Duisburg Boulevard                  |
+ 217 Botshabelo Place                   |
+ 1425 Shikarpur Manor                   | 
+	  
+	  
+	  
+	  SELECT ADDRESS,ADDRESS2 FROM ADDRESS WHERE ADDRESS2 IS  NULL;
+	  
+	  
+	  
+	    address        | address2
+----------------------+----------
+ 47 MySakila Drive    |
+ 28 MySQL Boulevard   |
+ 23 Workhaven Lane    |
+ 1411 Lillydale Drive |
+(4 rows)
+	  
+	  
+	::NULL MEANS MISSING DATA OR NOT APPLICABLE.
+
+
+============================================================================================
+		GROUP BY
+		===========================
+		
+		
+		SELECT CUSTOMER_ID FROM PAYMENT GROUP BY CUSTOMER_ID;
+	  
+	   customer_id
+-------------
+         184
+          87
+         477
+         273
+         550
+          51
+         394
+         272
+          70
+         190
+         350
+         539
+         554
+         278
+         424
+         406
+         176
+         576
+         309
+         292
+         509
+         271
+	  
+	-------------------------
+	
+	  SELECT CUSTOMER_ID,SUM(AMOUNT) FROM PAYMENT GROUP BY CUSTOMER_ID ORDER BY SUM(AMOUNT) DESC;
+	  
+	  
+	   customer_id |  sum
+-------------+--------
+         148 | 211.55
+         526 | 208.58
+         178 | 194.61
+         137 | 191.62
+         144 | 189.60
+         459 | 183.63
+         181 | 167.67
+         410 | 167.62
+         236 | 166.61
+         403 | 162.67
+         522 | 161.68
+         469 | 158.65
+         470 | 157.69
+         373 | 156.66
+         259 | 154.70
+         468 | 154.66
+         462 | 152.69
+         372 | 152.68
+         187 | 151.73
+         550 | 151.69
+         176 | 151.68
+         532 | 149.69
+          75 | 149.61
+         209 | 147.71
+          86 | 146.68
+		 	  
+	-------------------------
+	
+	  SELECT STAFF_ID,COUNT(PAYMENT_ID) FROM PAYMENT GROUP BY STAFF_ID ; 
+		   staff_id | count
+----------+-------
+        1 |  7292
+        2 |  7304
+(2 rows)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+//USING HAVING ==>ONLY USED ON AGGREGATION FUNCTION
+
+
+SELECT CUSTOMER_ID,SUM(AMOUNT) FROM PAYMENT GROUP BY CUSTOMER_ID 
+HAVING SUM (AMOUNT)>200
+ORDER BY SUM(AMOUNT) DESC;
+
+ customer_id |  sum
+-------------+--------
+         148 | 211.55
+         526 | 208.58
+(2 rows)
+	  
+------------------------------------------------------------------------------------------------------------------------------------------------------  
+	SELECT RATING,SPECIAL_FEATURES,COUNT(RELEASE_YEAR)
+	FROM FILM
+	GROUP BY RATING,SPECIAL_FEATURES;
+	
+	 rating |                       special_features                       | count
+--------+--------------------------------------------------------------+-------
+ PG-13  | {Trailers,"Behind the Scenes"}                               |    18
+ G      | {Trailers,"Deleted Scenes","Behind the Scenes"}              |     8
+ G      | {Commentaries,"Behind the Scenes"}                           |    15
+ NC-17  | {Trailers,"Behind the Scenes"}                               |    14
+ NC-17  | {Trailers,Commentaries,"Deleted Scenes"}                     |    11
+ PG-13  | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    15
+ R      | {"Deleted Scenes"}                                           |    12
+ G      | {Trailers,"Deleted Scenes"}                                  |    10
+ G      | {Trailers,Commentaries}                                      |    10
+ PG     | {Commentaries,"Deleted Scenes"}                              |    14
+ NC-17  | {"Deleted Scenes"}                                           |    12
+ R      | {Trailers,Commentaries,"Deleted Scenes"}                     |    11
+ PG-13  | {Commentaries}                                               |    11
+ NC-17  | {"Behind the Scenes"}                                        |    10
+ R      | {Commentaries}                                               |    14
+ PG     | {Trailers,Commentaries,"Deleted Scenes"}                     |    15
+ G      | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |     7
+ PG     | {Trailers,Commentaries}                                      |    15
+ NC-17  | {Commentaries}                                               |    12
+ NC-17  | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    19
+ NC-17  | {Trailers,Commentaries}                                      |    12
+ PG-13  | {"Behind the Scenes"}                                        |    18
+ PG-13  | {Commentaries,"Deleted Scenes"}                              |    11
+ R      | {Trailers,Commentaries}                                      |    16
+ PG-13  | {Trailers,"Deleted Scenes","Behind the Scenes"}              |     8
+ PG     | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    13
+ PG     | {Commentaries}                                               |    12
+ PG-13  | {Trailers,Commentaries,"Deleted Scenes"}                     |    14
+ NC-17  | {Commentaries,"Deleted Scenes"}                              |    16
+ PG     | {Trailers,Commentaries,"Deleted Scenes","Behind the Scenes"} |    11
+ PG     | {Commentaries,"Behind the Scenes"}                           |    14
+ PG     | {Trailers,Commentaries,"Behind the Scenes"}                  |    13
+ PG-13  | {Trailers}                                                   |    19
+ R      | {Commentaries,"Deleted Scenes"}                              |    12
+ PG-13  | {"Deleted Scenes","Behind the Scenes"}                       |    14
+ NC-17  | {"Deleted Scenes","Behind the Scenes"}                       |    16
+ PG     | {"Behind the Scenes"}                                        |    15
+ PG-13  | {Trailers,"Deleted Scenes"}                                  |    14
+ PG     | {Trailers}                                                   |    10
+ R      | {"Behind the Scenes"}                                        |    16
+ PG-13  | {Trailers,Commentaries}                                      |    19
+-- More  --
+	
+	
+	
+	
+	
+	
+	SELECT RATING,SPECIAL_FEATURES,COUNT(RELEASE_YEAR)
+	FROM FILM
+	GROUP BY CUBE(RATING,SPECIAL_FEATURES);
+	
+	 rating |                       special_features                       | count
+--------+--------------------------------------------------------------+-------
+        |                                                              |  1000
+ PG-13  | {Trailers,"Behind the Scenes"}                               |    18
+ G      | {Trailers,"Deleted Scenes","Behind the Scenes"}              |     8
+ G      | {Commentaries,"Behind the Scenes"}                           |    15
+ NC-17  | {Trailers,"Behind the Scenes"}                               |    14
+ NC-17  | {Trailers,Commentaries,"Deleted Scenes"}                     |    11
+ PG-13  | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    15
+ R      | {"Deleted Scenes"}                                           |    12
+ G      | {Trailers,"Deleted Scenes"}                                  |    10
+ G      | {Trailers,Commentaries}                                      |    10
+ PG     | {Commentaries,"Deleted Scenes"}                              |    14
+ NC-17  | {"Deleted Scenes"}                                           |    12
+ R      | {Trailers,Commentaries,"Deleted Scenes"}                     |    11
+ PG-13  | {Commentaries}                                               |    11
+ NC-17  | {"Behind the Scenes"}                                        |    10
+ R      | {Commentaries}                                               |    14
+ PG     | {Trailers,Commentaries,"Deleted Scenes"}                     |    15
+ G      | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |     7
+ PG     | {Trailers,Commentaries}                                      |    15
+ NC-17  | {Commentaries}                                               |    12
+ NC-17  | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    19
+ NC-17  | {Trailers,Commentaries}                                      |    12
+ PG-13  | {"Behind the Scenes"}                                        |    18
+ PG-13  | {Commentaries,"Deleted Scenes"}                              |    11
+ R      | {Trailers,Commentaries}                                      |    16
+ PG-13  | {Trailers,"Deleted Scenes","Behind the Scenes"}              |     8
+ PG     | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    13
+ PG     | {Commentaries}                                               |    12
+ PG-13  | {Trailers,Commentaries,"Deleted Scenes"}                     |    14
+ NC-17  | {Commentaries,"Deleted Scenes"}                              |    16
+ PG     | {Trailers,Commentaries,"Deleted Scenes","Behind the Scenes"} |    11
+ PG     | {Commentaries,"Behind the Scenes"}                           |    14
+ PG     | {Trailers,Commentaries,"Behind the Scenes"}                  |    13
+ PG-13  | {Trailers}                                                   |    19
+ R      | {Commentaries,"Deleted Scenes"}                              |    12
+ PG-13  | {"Deleted Scenes","Behind the Scenes"}                       |    14
+ NC-17  | {"Deleted Scenes","Behind the Scenes"}                       |    16
+ PG     | {"Behind the Scenes"}                                        |    15
+ PG-13  | {Trailers,"Deleted Scenes"}                                  |    14
+ PG     | {Trailers}                                                   |    10
+ R      | {"Behind the Scenes"}                                        |    16
+-- More  --
+
+---------------------------------------------------------------------------------------------------------------------------------------
+SELECT RATING,SPECIAL_FEATURES,COUNT(RELEASE_YEAR)
+	FROM FILM
+	GROUP BY ROLLUP(RATING,SPECIAL_FEATURES);
+	
+ rating |                       special_features                       | count
+--------+--------------------------------------------------------------+-------
+        |                                                              |  1000
+ PG-13  | {Trailers,"Behind the Scenes"}                               |    18
+ G      | {Trailers,"Deleted Scenes","Behind the Scenes"}              |     8
+ G      | {Commentaries,"Behind the Scenes"}                           |    15
+ NC-17  | {Trailers,"Behind the Scenes"}                               |    14
+ NC-17  | {Trailers,Commentaries,"Deleted Scenes"}                     |    11
+ PG-13  | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    15
+ R      | {"Deleted Scenes"}                                           |    12
+ G      | {Trailers,"Deleted Scenes"}                                  |    10
+ G      | {Trailers,Commentaries}                                      |    10
+ PG     | {Commentaries,"Deleted Scenes"}                              |    14
+ NC-17  | {"Deleted Scenes"}                                           |    12
+ R      | {Trailers,Commentaries,"Deleted Scenes"}                     |    11
+ PG-13  | {Commentaries}                                               |    11
+ NC-17  | {"Behind the Scenes"}                                        |    10
+ R      | {Commentaries}                                               |    14
+ PG     | {Trailers,Commentaries,"Deleted Scenes"}                     |    15
+ G      | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |     7
+ PG     | {Trailers,Commentaries}                                      |    15
+ NC-17  | {Commentaries}                                               |    12
+ NC-17  | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    19
+ NC-17  | {Trailers,Commentaries}                                      |    12
+ PG-13  | {"Behind the Scenes"}                                        |    18
+ PG-13  | {Commentaries,"Deleted Scenes"}                              |    11
+ R      | {Trailers,Commentaries}                                      |    16
+ PG-13  | {Trailers,"Deleted Scenes","Behind the Scenes"}              |     8
+ PG     | {Commentaries,"Deleted Scenes","Behind the Scenes"}          |    13
+ PG     | {Commentaries}                                               |    12
+ PG-13  | {Trailers,Commentaries,"Deleted Scenes"}                     |    14
+ NC-17  | {Commentaries,"Deleted Scenes"}                              |    16
+ PG     | {Trailers,Commentaries,"Deleted Scenes","Behind the Scenes"} |    11
+ PG     | {Commentaries,"Behind the Scenes"}                           |    14
+ PG     | {Trailers,Commentaries,"Behind the Scenes"}                  |    13
+ PG-13  | {Trailers}                                                   |    19
+ R      | {Commentaries,"Deleted Scenes"}                              |    12
+ PG-13  | {"Deleted Scenes","Behind the Scenes"}                       |    14
+ NC-17  | {"Deleted Scenes","Behind the Scenes"}                       |    16
+ PG     | {"Behind the Scenes"}                                        |    15
+ PG-13  | {Trailers,"Deleted Scenes"}                                  |    14
+ PG     | {Trailers}                                                   |    10
+ R      | {"Behind the Scenes"}                                        |    16
+-- More  --
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
